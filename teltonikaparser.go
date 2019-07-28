@@ -10,13 +10,15 @@ package teltonikaparser
 import (
 	"fmt"
 	"log"
+
+	"github.com/filipkroca/b2n"
 )
 
 //Decoded struct represent decoded Teltonika data structure with all AVL data as return from function Decode
 type Decoded struct {
-	IMEI     uint64    //IMEI number, if len==15 also validated by checksum
+	IMEI     string    //IMEI number, if len==15 also validated by checksum
 	CodecID  byte      //0x08 (codec 8) or 0x8E (codec 8 extended)
-	NoOfData byte      //Number of Data
+	NoOfData uint8     //Number of Data
 	Data     []AvlData //Slice with avl data
 }
 
@@ -46,24 +48,24 @@ type IOElement struct {
 func Decode(bs *[]byte) (Decoded, error) {
 	decoded := Decoded{}
 	var err error
-	var nextByte uint32
-
-	//decode and validate IMEI
-	decoded.IMEI, err = ParseIMEI(bs)
-	if err != nil {
-		log.Fatalf("Error when decoding IMEI, %v", err)
-		return Decoded{}, fmt.Errorf("Error when decoding IMEI, %v", err)
-	}
+	var nextByte int
 
 	//determine bit number where start data, it can change because of IMEI length
-	imeiLen := ParseHex2Uint64(bs, 6, 8)
+	imeiLen := int(b2n.ParseBs2Uint8(bs, 7))
 	if imeiLen != 15 && imeiLen != 16 {
 		log.Fatalf("Error when determining IMEI len want 15 or 16, got %v", imeiLen)
 		return Decoded{}, fmt.Errorf("Error when determining IMEI len want 15 or 16, got %v", imeiLen)
 	}
 
+	//decode and validate IMEI
+	decoded.IMEI, err = b2n.ParseIMEI(bs, 8, imeiLen)
+	if err != nil {
+		log.Fatalf("Error when decoding IMEI, %v", err)
+		return Decoded{}, fmt.Errorf("Error when decoding IMEI, %v", err)
+	}
+
 	//count start bit for data
-	startByte := 8 + uint32(imeiLen)
+	startByte := 8 + imeiLen
 
 	//decode Codec ID
 	decoded.CodecID = (*bs)[startByte]
@@ -76,7 +78,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 	nextByte = startByte + 1
 
 	//determine no of data in packet
-	decoded.NoOfData = (*bs)[nextByte]
+	decoded.NoOfData = b2n.ParseBs2Uint8(bs, nextByte)
 
 	//increment nextByte counter
 	nextByte++
@@ -89,22 +91,22 @@ func Decode(bs *[]byte) (Decoded, error) {
 		decodedData := AvlData{}
 
 		//time record in ms has 8 Bytes
-		decodedData.UtimeMs = ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+8))
+		decodedData.UtimeMs = b2n.ParseBs2Uint64(bs, nextByte)
 		decodedData.Utime = uint64(decodedData.UtimeMs / 1000)
 		nextByte += 8
 
 		//parse priority
-		decodedData.Priority = uint8((*bs)[nextByte])
+		decodedData.Priority = b2n.ParseBs2Uint8(bs, nextByte)
 		nextByte++
 
 		//parse and validate GPS
-		decodedData.Lat = ParseHex2Int32TwoComplement(bs, int32(nextByte), int32(nextByte+4))
+		decodedData.Lat = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
 		if !(decodedData.Lat > -850000000 && decodedData.Lat < 850000000) {
 			log.Fatalf("Invalid Lat value, want lat > -850000000 AND lat < 850000000, got %v", decodedData.Lat)
 			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -850000000 AND lat < 850000000, got %v", decodedData.Lat)
 		}
 		nextByte += 4
-		decodedData.Lng = ParseHex2Int32TwoComplement(bs, int32(nextByte), int32(nextByte+4))
+		decodedData.Lng = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
 		if !(decodedData.Lng > -1800000000 && decodedData.Lng < 1800000000) {
 			log.Fatalf("Invalid Lat value, want lat > -1800000000 AND lat < 1800000000, got %v", decodedData.Lng)
 			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -1800000000 AND lat < 1800000000, got %v", decodedData.Lng)
@@ -112,11 +114,11 @@ func Decode(bs *[]byte) (Decoded, error) {
 		nextByte += 4
 
 		//parse Altitude
-		decodedData.Altitude = int16(ParseHex2Int32TwoComplement(bs, int32(nextByte), int32(nextByte+2)))
+		decodedData.Altitude = b2n.ParseBs2Int16TwoComplement(bs, nextByte)
 		nextByte += 2
 
-		//parse Altitude
-		decodedData.Angle = uint16(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+2)))
+		//parse Angle
+		decodedData.Angle = b2n.ParseBs2Uint16(bs, nextByte)
 		if decodedData.Angle > 360 {
 			log.Fatalf("Invalid Angle value, want Angle <= 360, got %v", decodedData.Angle)
 			return Decoded{}, fmt.Errorf("Invalid Angle value, want Angle <= 360, got %v", decodedData.Angle)
@@ -124,24 +126,24 @@ func Decode(bs *[]byte) (Decoded, error) {
 		nextByte += 2
 
 		//parse num. of vissible sattelites VisSat
-		decodedData.VisSat = uint8(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+1)))
+		decodedData.VisSat = b2n.ParseBs2Uint8(bs, nextByte)
 		nextByte++
 
 		//parse Speed
-		decodedData.Speed = uint16(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+2)))
+		decodedData.Speed = b2n.ParseBs2Uint16(bs, nextByte)
 		nextByte += 2
 
 		//parse EventID
 		if decoded.CodecID == 0x8e {
 			//if Codec 8 extended is used, Event id has size 2 bytes
-			decodedData.EventID = uint16(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+2)))
+			decodedData.EventID = uint16(b2n.ParseBs2Uint16(bs, nextByte))
 			nextByte += 2
 		} else {
-			decodedData.EventID = uint16(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+1)))
+			decodedData.EventID = uint16(b2n.ParseBs2Uint8(bs, nextByte))
 			nextByte++
 		}
 
-		decodedIO, endByte, err := DecodeIOElements(bs, int32(nextByte), decoded.CodecID)
+		decodedIO, endByte, err := DecodeIOElements(bs, nextByte, decoded.CodecID)
 		if err != nil {
 			log.Fatalf("Error when parsing IO Elements, %v", err)
 			return Decoded{}, fmt.Errorf("Error when parsing IO Elements, %v", err)

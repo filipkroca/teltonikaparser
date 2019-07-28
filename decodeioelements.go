@@ -7,12 +7,15 @@ package teltonikaparser
 import (
 	"fmt"
 	"log"
+
+	"github.com/filipkroca/b2n"
 )
 
 //DecodeIOElements take pointer to a byte slice with raw data, start Byte position and Codec ID, and returns slice of IOElement
-func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint32, error) {
+func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, error) {
 
-	var codecLenDel int32 = 1
+	var totalElements int
+	codecLenDel := 1
 	if codecID == 0x8e {
 		//if Codec 8 extended is used, Event id has size 2 bytes
 		//Codec ID	0x08	0x8E
@@ -22,17 +25,25 @@ func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint3
 		//AVL Data IO element AVL ID length	1 Byte	2 Bytes
 		codecLenDel = 2
 	}
-
 	//parse number of elements and prepare array
-	totalElements := int(ParseHex2Uint64(bs, int32(start), int32(start+codecLenDel)))
+	if codecID == 0x8e {
+		totalElements = int(b2n.ParseBs2Uint16(bs, start))
+	} else if codecID == 0x08 {
+		totalElements = int(b2n.ParseBs2Uint8(bs, start))
+	}
 	totalElementsChecksum := 0
-	//make array
+	//make a slice
 	ioElementsBS := make([]IOElement, 0, totalElements)
 
+	//start parsing data
 	nextByte := start + codecLenDel
 
 	//parse 1Byte ios
-	noOfElements := int(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+codecLenDel)))
+	noOfElements := int(b2n.ParseBs2Uint8(bs, nextByte))
+	if codecID == 0x8e {
+		noOfElements = int(b2n.ParseBs2Uint16(bs, nextByte))
+	}
+
 	nextByte = nextByte + codecLenDel
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
@@ -43,7 +54,11 @@ func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint3
 	}
 
 	//parse 2Byte ios
-	noOfElements = int(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+codecLenDel)))
+	noOfElements = int(b2n.ParseBs2Uint8(bs, nextByte))
+	if codecID == 0x8e {
+		noOfElements = int(b2n.ParseBs2Uint16(bs, nextByte))
+	}
+
 	nextByte = nextByte + codecLenDel
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
@@ -54,7 +69,11 @@ func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint3
 	}
 
 	//parse 4Byte ios
-	noOfElements = int(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+codecLenDel)))
+	noOfElements = int(b2n.ParseBs2Uint8(bs, nextByte))
+	if codecID == 0x8e {
+		noOfElements = int(b2n.ParseBs2Uint16(bs, nextByte))
+	}
+
 	nextByte = nextByte + codecLenDel
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
@@ -65,7 +84,11 @@ func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint3
 	}
 
 	//parse 8Byte ios
-	noOfElements = int(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+codecLenDel)))
+	noOfElements = int(b2n.ParseBs2Uint8(bs, nextByte))
+	if codecID == 0x8e {
+		noOfElements = int(b2n.ParseBs2Uint16(bs, nextByte))
+	}
+
 	nextByte = nextByte + codecLenDel
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
@@ -77,14 +100,15 @@ func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint3
 
 	if codecID == 0x8e {
 		//parse variableByte ios, only Codec 8 extended
-		noOfElements = int(ParseHex2Uint64(bs, int32(nextByte), int32(nextByte+codecLenDel)))
+
+		noOfElements = int(b2n.ParseBs2Uint16(bs, nextByte))
+
 		nextByte = nextByte + codecLenDel
 
 		for ioB := 0; ioB < noOfElements; ioB++ {
 			//append element to the returned slice
-			ioElx := cutIOxLen(bs, nextByte)
-			ioElementsBS = append(ioElementsBS, ioElx)
-			nextByte += 2 + int32(ioElx.Length)
+			ioElementsBS = append(ioElementsBS, cutIOxLen(bs, nextByte))
+			nextByte += codecLenDel + 2
 			totalElementsChecksum++
 		}
 	}
@@ -94,28 +118,37 @@ func DecodeIOElements(bs *[]byte, start int32, codecID byte) ([]IOElement, uint3
 		return []IOElement{}, 0, fmt.Errorf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
 	}
 
-	return ioElementsBS, uint32(nextByte), nil
+	return ioElementsBS, nextByte, nil
 
 }
 
-func cutIO(bs *[]byte, start int32, idLen int32, len int32) IOElement {
+func cutIO(bs *[]byte, start int, idLen int, len int) IOElement {
 	curIO := IOElement{}
 	//determine length of this sized elements (num. of 1Bytes elements, num. of 2Bytes elements ...)
 	curIO.Length = uint16(len)
-	curIO.IOID = uint16(ParseHex2Uint64(bs, start, start+idLen))
+
+	//parse element ID according to the length of ID [1, 2] Byte
+	if idLen == 1 {
+		curIO.IOID = uint16(b2n.ParseBs2Uint8(bs, start))
+	} else if idLen == 2 {
+		curIO.IOID = b2n.ParseBs2Uint16(bs, start)
+	}
+
 	curIO.Value = (*bs)[start+idLen : start+idLen+len]
 
 	return curIO
 }
 
-func cutIOxLen(bs *[]byte, start int32) IOElement {
+func cutIOxLen(bs *[]byte, start int) IOElement {
 	curIO := IOElement{}
 
-	//determine length of this variable element
-	curIO.Length = uint16(ParseHex2Uint64(bs, start+2, start+4))
+	//parse element ID according to the length of ID [1, 2] Byte
+	curIO.IOID = b2n.ParseBs2Uint16(bs, start)
 
-	curIO.IOID = uint16(ParseHex2Uint64(bs, start, start+2))
-	curIO.Value = (*bs)[start+4 : start+4+int32(curIO.Length)]
+	//determine length of this variable element
+	curIO.Length = b2n.ParseBs2Uint16(bs, start+2)
+
+	curIO.Value = (*bs)[start+4 : start+4+int(curIO.Length)]
 
 	return curIO
 }

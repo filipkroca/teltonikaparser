@@ -1,4 +1,9 @@
-{
+//this file is used to store JSON
+
+package teltonikaparser
+
+//AVLJson holds JSON representation of AVL IO elements
+const AVLJson string = `{
     "82":{
        "No":"107",
        "PropertyName":"Accelerator Pedal Position",
@@ -3353,4 +3358,4 @@
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
        "Parametr Group":"LVCAN elements"
     }
- }
+ }`
