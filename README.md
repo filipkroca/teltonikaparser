@@ -48,7 +48,7 @@ func main() {
         // loop over IOElements
         for _, ioel := range val.IOElements {
                 // decode to human readable format
-                decoded, err := humanDecoder.Human(&ioel, "FMBXY")
+                decoded, err := humanDecoder.Human(&ioel, "FMBXY") // second parameter - device family type ["FMBXY", "FM64"]
                 if err != nil {
                 log.Printf("Hoops, human, %v\n", err)
                 return
