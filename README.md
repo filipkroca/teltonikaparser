@@ -65,7 +65,9 @@ This package also provides method (h *HAvlData) GetFinalValue() which can conver
 
 Currently are implemented AVLs lists for [FMBXY](https://wiki.teltonika.lt/view/FMB_AVL_ID) and [FMB64](https://wiki.teltonika.lt/view/FMB64_AVL_ID) devices family.
 
-For example, have binary packet bs which is Teltonika UDP Codec 8 packet
+## Example
+
+Have binary packet bs which is Teltonika UDP Codec 8 packet
 
 ```go
 package main
