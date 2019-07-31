@@ -1,9 +1,23 @@
-//this file is used to store JSON
+// this file is used to store JSON
 
-package teltonikaparser
+package teltonikajson
 
-//AVLJson holds JSON representation of AVL IO elements
-const AVLJson string = `{
+// FMBXY holds JSON representation of AVL IO elements for devices family FMBXY
+const FMBXY string = `{
+    "4": {
+         "No":"70",
+         "PropertyName":"Pulse Counter Din1",
+         "Bytes":"4",
+         "Type":"Unsigned",
+         "Min":"0",
+         "Max":"4294967295",
+         "Multiplier":"-",
+         "Units":"-",
+         "Description":"Counts pulses, count is reset when recors is saved",
+         "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
+         "Parametr Group":"Permanent I/O elements",
+         "FinalConversion":"toUint32"
+    },
     "82":{
        "No":"107",
        "PropertyName":"Accelerator Pedal Position",
@@ -15,7 +29,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Value in persentages, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "83":{
        "No":"108",
@@ -28,7 +43,8 @@ const AVLJson string = `{
        "Units":"l",
        "Description":"Value in liters, L",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "84":{
        "No":"109",
@@ -41,7 +57,8 @@ const AVLJson string = `{
        "Units":"l",
        "Description":"Value in liters, L",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "85":{
        "No":"110",
@@ -54,7 +71,8 @@ const AVLJson string = `{
        "Units":"rpm",
        "Description":"Value in rounds per minute, rpm",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "87":{
        "No":"111",
@@ -67,7 +85,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Value in meters, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "89":{
        "No":"112",
@@ -80,7 +99,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Value in percentages, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "90":{
        "No":"113",
@@ -93,7 +113,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Door status value: Min – 0, Max – 16128 Door status is represented as bitmask converted to decimal value. Possible values: 0 – all doors closed, 0x100 (256) – front left door is opened, 0x200 (512) – front right door is opened, 0x400 (1024) – rear left door is opened, 0x800 (2048) – rear right door is opened, 0x1000 (4096) – hood is opened, 0x2000 (8192) – trunk is opened, 0x3F00 (16128) – all doors are opened, or combinations of values",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "100":{
        "No":"114",
@@ -106,7 +127,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Value: Min - 0, Max - 999",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "101":{
        "No":"115",
@@ -119,7 +141,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Module ID",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "102":{
        "No":"116",
@@ -132,7 +155,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Engine work time in minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "103":{
        "No":"117",
@@ -145,7 +169,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"total Engine work time in minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "105":{
        "No":"118",
@@ -158,7 +183,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Total Vehicle Mileage, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "107":{
        "No":"119",
@@ -171,7 +197,8 @@ const AVLJson string = `{
        "Units":"l",
        "Description":"Total Fuel Consumed, l",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "110":{
        "No":"120",
@@ -184,7 +211,8 @@ const AVLJson string = `{
        "Units":"l/h",
        "Description":"Fuel Rate, l/h",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "111":{
        "No":"121",
@@ -197,7 +225,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"AdBlue, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "112":{
        "No":"122",
@@ -210,7 +239,8 @@ const AVLJson string = `{
        "Units":"l",
        "Description":"AdBlue level, L",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "114":{
        "No":"123",
@@ -223,7 +253,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Engine Load, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "115":{
        "No":"124",
@@ -236,7 +267,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Engine Temperature, °C",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toInt16"
     },
     "118":{
        "No":"125",
@@ -249,7 +281,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Axle 1 load, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "119":{
        "No":"126",
@@ -262,7 +295,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Axle 2 load, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "120":{
        "No":"127",
@@ -275,7 +309,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Axle 3 load, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "121":{
        "No":"128",
@@ -288,7 +323,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Axle 4 load, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "122":{
        "No":"129",
@@ -301,7 +337,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Axle 5 load, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "123":{
        "No":"130",
@@ -314,7 +351,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Control state flags",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "124":{
        "No":"131",
@@ -327,7 +365,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Agricultural machinery flags",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "125":{
        "No":"132",
@@ -340,7 +379,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Harvesting Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "126":{
        "No":"133",
@@ -353,7 +393,8 @@ const AVLJson string = `{
        "Units":"m^2",
        "Description":"HArea of Harvest, m^2",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "127":{
        "No":"134",
@@ -366,7 +407,8 @@ const AVLJson string = `{
        "Units":"m^2/h",
        "Description":"Mowing efficiency, (m^2)/h",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "128":{
        "No":"135",
@@ -379,7 +421,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Mown Volume, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "129":{
        "No":"136",
@@ -392,7 +435,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Grain Moisture in proc, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "130":{
        "No":"137",
@@ -405,7 +449,8 @@ const AVLJson string = `{
        "Units":"rpm",
        "Description":"Harvesting Drum RPM, RPM",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "131":{
        "No":"138",
@@ -418,7 +463,8 @@ const AVLJson string = `{
        "Units":"mm",
        "Description":"Gap Under Harvesting Drum, mm",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "132":{
        "No":"139",
@@ -431,7 +477,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Security State Flag",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "133":{
        "No":"140",
@@ -444,7 +491,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Tacho Total Vehicle Distance, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "134":{
        "No":"141",
@@ -457,7 +505,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Trip Distance, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "135":{
        "No":"142",
@@ -470,7 +519,8 @@ const AVLJson string = `{
        "Units":"km/h",
        "Description":"Tacho Vehicle Speed, km/h",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "136":{
        "No":"143",
@@ -483,7 +533,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Tacho Driver Card Presence",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "137":{
        "No":"144",
@@ -496,7 +547,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Driver 1 States",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "138":{
        "No":"145",
@@ -509,7 +561,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Driver 2 States",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "139":{
        "No":"146",
@@ -522,7 +575,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver1 Continuous Driving Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "140":{
        "No":"147",
@@ -535,7 +589,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver2 Continuous Driving Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "141":{
        "No":"148",
@@ -548,7 +603,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver1 Cumulative Break Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "142":{
        "No":"149",
@@ -561,7 +617,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver2 Cumulative Break Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "143":{
        "No":"150",
@@ -574,7 +631,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver1 Duration Of Selected Activity, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "144":{
        "No":"151",
@@ -587,7 +645,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver2 Duration Of Selected Activity, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "145":{
        "No":"152",
@@ -600,7 +659,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver1 Cumulative Driving Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "146":{
        "No":"153",
@@ -613,7 +673,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Driver2 Cumulative Driving Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "147":{
        "No":"154",
@@ -626,7 +687,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Driver1 ID High",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "148":{
        "No":"155",
@@ -639,7 +701,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Driver1 ID Low",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "149":{
        "No":"156",
@@ -652,7 +715,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Driver2 ID High",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "150":{
        "No":"157",
@@ -665,7 +729,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Driver2 ID Low",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"to[]byte"
     },
     "151":{
        "No":"158",
@@ -678,7 +743,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees, °C",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toInt16"
     },
     "152":{
        "No":"159",
@@ -691,7 +757,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Electric cars battery level in percentages, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "160":{
        "No":"160",
@@ -704,7 +771,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"DTC Faults",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "161":{
        "No":"161",
@@ -717,7 +785,8 @@ const AVLJson string = `{
        "Units":"°",
        "Description":"Slope Of Arm, degrees °",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toInt8"
     },
     "162":{
        "No":"162",
@@ -730,7 +799,8 @@ const AVLJson string = `{
        "Units":"°",
        "Description":"Slope Of Arm, degrees °",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toInt8"
     },
     "163":{
        "No":"163",
@@ -743,7 +813,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Eject Of Arm, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "164":{
        "No":"164",
@@ -756,7 +827,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Horizontal Distance Arm Vehicle, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "165":{
        "No":"165",
@@ -769,7 +841,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Height Arm Above Ground, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "166":{
        "No":"166",
@@ -782,7 +855,8 @@ const AVLJson string = `{
        "Units":"rpm",
        "Description":"Drill RPM, RPM",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "167":{
        "No":"167",
@@ -795,7 +869,8 @@ const AVLJson string = `{
        "Units":"g/m^2",
        "Description":"Amount Of Spread Salt Square Meter, g/m^2",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "168":{
        "No":"168",
@@ -808,7 +883,8 @@ const AVLJson string = `{
        "Units":"V",
        "Description":"Battery Voltage, V",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "169":{
        "No":"169",
@@ -821,7 +897,8 @@ const AVLJson string = `{
        "Units":"T",
        "Description":"Amount Of Spread Fine Grained Salt, T",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "170":{
        "No":"170",
@@ -834,7 +911,8 @@ const AVLJson string = `{
        "Units":"T",
        "Description":"Amount Of Coarse Grained Salt, T",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "171":{
        "No":"171",
@@ -847,7 +925,8 @@ const AVLJson string = `{
        "Units":"T",
        "Description":"Amount Of Spread DiMix, T",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "172":{
        "No":"172",
@@ -860,7 +939,8 @@ const AVLJson string = `{
        "Units":"m^3",
        "Description":"Amount Of Spread Coarse Grained Calcium, m^3",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "173":{
        "No":"173",
@@ -873,7 +953,8 @@ const AVLJson string = `{
        "Units":"m^3",
        "Description":"Amount Of Spread Calcium Chloride, m^3",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "174":{
        "No":"174",
@@ -886,7 +967,8 @@ const AVLJson string = `{
        "Units":"m^3",
        "Description":"Amount Of Spread Sodium Chloride, m^3",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "176":{
        "No":"175",
@@ -899,7 +981,8 @@ const AVLJson string = `{
        "Units":"m^3",
        "Description":"Amount Of Spread Magnesium Chloride, m^3",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "177":{
        "No":"176",
@@ -912,7 +995,8 @@ const AVLJson string = `{
        "Units":"T",
        "Description":"Amount Of Spread Gravel, T",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "178":{
        "No":"177",
@@ -925,7 +1009,8 @@ const AVLJson string = `{
        "Units":"T",
        "Description":"Amount Of Spread Sand, T",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "183":{
        "No":"178",
@@ -938,7 +1023,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Width Pouring Left, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "184":{
        "No":"179",
@@ -951,7 +1037,8 @@ const AVLJson string = `{
        "Units":"m",
        "Description":"Width Pouring Right, m",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "185":{
        "No":"180",
@@ -964,7 +1051,8 @@ const AVLJson string = `{
        "Units":"h",
        "Description":"Salt Spreader Working Hours, h",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "186":{
        "No":"181",
@@ -977,7 +1065,8 @@ const AVLJson string = `{
        "Units":"km",
        "Description":"Distance During Salting, km",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "187":{
        "No":"182",
@@ -990,7 +1079,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"Load Weight, kg",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "188":{
        "No":"183",
@@ -1003,7 +1093,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Retarder Load, %",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "189":{
        "No":"184",
@@ -1016,7 +1107,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Cruise Time, minutes",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint32"
     },
     "232":{
        "No":"185",
@@ -1029,7 +1121,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"CNG Status",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "233":{
        "No":"186",
@@ -1042,7 +1135,8 @@ const AVLJson string = `{
        "Units":"kg",
        "Description":"CNG Used",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "234":{
        "No":"187",
@@ -1055,7 +1149,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"CNG Level",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint16"
     },
     "235":{
        "No":"188",
@@ -1068,7 +1163,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Oil Level",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     },
     "155":{
        "No":"189",
@@ -1081,7 +1177,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "156":{
        "No":"190",
@@ -1094,7 +1191,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "157":{
        "No":"191",
@@ -1107,7 +1205,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "158":{
        "No":"192",
@@ -1120,7 +1219,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "159":{
        "No":"193",
@@ -1133,7 +1233,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "61":{
        "No":"194",
@@ -1146,7 +1247,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "62":{
        "No":"195",
@@ -1159,7 +1261,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "63":{
        "No":"196",
@@ -1172,7 +1275,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "64":{
        "No":"197",
@@ -1185,7 +1289,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "65":{
        "No":"198",
@@ -1198,7 +1303,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "70":{
        "No":"199",
@@ -1211,7 +1317,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "88":{
        "No":"200",
@@ -1224,7 +1331,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "91":{
        "No":"201",
@@ -1237,7 +1345,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "92":{
        "No":"202",
@@ -1250,7 +1359,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "93":{
        "No":"203",
@@ -1263,7 +1373,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "94":{
        "No":"204",
@@ -1276,7 +1387,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "95":{
        "No":"205",
@@ -1289,7 +1401,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "96":{
        "No":"206",
@@ -1302,7 +1415,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "97":{
        "No":"207",
@@ -1315,7 +1429,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "98":{
        "No":"208",
@@ -1328,7 +1443,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "99":{
        "No":"209",
@@ -1341,7 +1457,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "153":{
        "No":"210",
@@ -1354,7 +1471,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "154":{
        "No":"211",
@@ -1367,7 +1485,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "190":{
        "No":"212",
@@ -1380,7 +1499,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "191":{
        "No":"213",
@@ -1393,7 +1513,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "192":{
        "No":"214",
@@ -1406,7 +1527,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "193":{
        "No":"215",
@@ -1419,7 +1541,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "194":{
        "No":"216",
@@ -1432,7 +1555,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "195":{
        "No":"217",
@@ -1445,7 +1569,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "196":{
        "No":"218",
@@ -1458,7 +1583,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "197":{
        "No":"219",
@@ -1471,7 +1597,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "198":{
        "No":"220",
@@ -1484,7 +1611,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "208":{
        "No":"221",
@@ -1497,7 +1625,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "209":{
        "No":"222",
@@ -1510,7 +1639,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "216":{
        "No":"223",
@@ -1523,7 +1653,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "217":{
        "No":"224",
@@ -1536,7 +1667,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "218":{
        "No":"225",
@@ -1549,7 +1681,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "219":{
        "No":"226",
@@ -1562,7 +1695,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "220":{
        "No":"227",
@@ -1575,7 +1709,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "221":{
        "No":"228",
@@ -1588,7 +1723,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "222":{
        "No":"229",
@@ -1601,7 +1737,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "223":{
        "No":"230",
@@ -1614,7 +1751,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "224":{
        "No":"231",
@@ -1627,7 +1765,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "225":{
        "No":"232",
@@ -1640,7 +1779,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "226":{
        "No":"233",
@@ -1653,7 +1793,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "227":{
        "No":"234",
@@ -1666,7 +1807,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "228":{
        "No":"235",
@@ -1679,7 +1821,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "229":{
        "No":"236",
@@ -1692,7 +1835,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "230":{
        "No":"237",
@@ -1705,7 +1849,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "231":{
        "No":"238",
@@ -1718,7 +1863,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone 2 – over speeding end 3 – over speeding start",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "175":{
        "No":"239",
@@ -1731,7 +1877,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – target left zone 1 – target entered zone",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "250":{
        "No":"240",
@@ -1744,7 +1891,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"1 – trip start, 0 – trip stop. From 01.00.24 fw version available with BT app new values: 2 – Business Status; 3 – Private Status; 4-9 – Custom Statuses",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "255":{
        "No":"241",
@@ -1757,7 +1905,8 @@ const AVLJson string = `{
        "Units":"km/h",
        "Description":"At over speeding start km/h, at over speeding end km/h",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "251":{
        "No":"242",
@@ -1770,7 +1919,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - moving 1 - idling",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "253":{
        "No":"243",
@@ -1783,7 +1933,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"1 – harsh acceleration 2 – harsh braking 3 – harsh cornering",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "246":{
        "No":"244",
@@ -1796,7 +1947,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – steady 1 – towing",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "252":{
        "No":"245",
@@ -1809,7 +1961,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – battery present 1 – battery unpluged",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "247":{
        "No":"246",
@@ -1822,7 +1975,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"1 – crash 2 – limited crash trace (device not calibrated) 3 - limited crash trace (device is calibrated) 4 - full crash trace (device not calibrated) 5 - full crash trace (device is calibrated)",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "248":{
        "No":"247",
@@ -1835,7 +1989,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – iButton not connected 1 – iButton connected (Immobilizer) 2 – iButton connected (Authorized Driving)",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "254":{
        "No":"248",
@@ -1848,7 +2003,8 @@ const AVLJson string = `{
        "Units":"G or rad",
        "Description":"Depending on green driving type: if harsh acceleration or braking – g*100 (value 123 -> 1.23g), if harsh cornering – degrees (value in radians)",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "249":{
        "No":"249",
@@ -1861,7 +2017,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"1 - jamming start 0 - jamming stop",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "14":{
        "No":"250",
@@ -1874,7 +2031,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Value of SIM ICCID, LSB",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "243":{
        "No":"251",
@@ -1887,7 +2045,8 @@ const AVLJson string = `{
        "Units":"ms",
        "Description":"Duration of event that did generate Green Driving",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint16"
     },
     "236":{
        "No":"252",
@@ -1900,7 +2059,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – Reserved 1 – Alarm event occurred",
        "HWSupport":"TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "242":{
        "No":"253",
@@ -1913,7 +2073,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – ManDown diactivated 1 – ManDown is acive",
        "HWSupport":"TMT250",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "245":{
        "No":"254",
@@ -1926,7 +2087,8 @@ const AVLJson string = `{
        "Units":"deg/s",
        "Description":"Gyroscope axis data 8 bytes 1st byte - Z axis, 2nd byte - Y axis, 3rd byte - X axis, 4th byte - empty (0x00) records with gyro IO element will be made during crash event. Codec61 protocol required.",
        "HWSupport":"All hardware with LSM6DSL gyroscope",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "244":{
        "No":"255",
@@ -1939,7 +2101,8 @@ const AVLJson string = `{
        "Units":"deg/s",
        "Description":"Generates after spec DIN2/AIN2 scenario",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Eventual I/O elements"
+       "Parametr Group":"Eventual I/O elements",
+       "FinalConversion":"toUint8"
     },
     "281":{
        "No":"256",
@@ -1991,7 +2154,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - Ignition Off 1 - Ignition On",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "240":{
        "No":"2",
@@ -2004,7 +2168,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - Movement Off 1 - Movement On",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "80":{
        "No":"3",
@@ -2017,7 +2182,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – Home On Stop 1 – Home On Moving 2 – Roaming On Stop 3 – Roaming On Moving 4 – Unknown On Stop 5 – Unknown On Moving",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "21":{
        "No":"4",
@@ -2030,7 +2196,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Value in range 1-5",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "200":{
        "No":"5",
@@ -2043,7 +2210,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - No Sleep 1 – GPS Sleep 2 – Deep Sleep 3 – Online Sleep",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "69":{
        "No":"6",
@@ -2056,7 +2224,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - OFF 1 – ON with fix 2 - ON without fix 3 - In sleep state",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "181":{
        "No":"7",
@@ -2069,7 +2238,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Probability",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "182":{
        "No":"8",
@@ -2082,7 +2252,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Probability",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "66":{
        "No":"9",
@@ -2095,7 +2266,8 @@ const AVLJson string = `{
        "Units":"mV",
        "Description":"Voltage mV",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "24":{
        "No":"10",
@@ -2108,7 +2280,8 @@ const AVLJson string = `{
        "Units":"km/h",
        "Description":"Value km/h",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "205":{
        "No":"11",
@@ -2121,7 +2294,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"GSM base station ID",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "206":{
        "No":"12",
@@ -2134,7 +2308,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Location Area code (LAC), it depends on GSM operator. It provides unique number which assigned to a set of base GSM stations. Max value: 65536",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "67":{
        "No":"13",
@@ -2147,7 +2322,8 @@ const AVLJson string = `{
        "Units":"mV",
        "Description":"Voltage, mV",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "68":{
        "No":"14",
@@ -2160,7 +2336,8 @@ const AVLJson string = `{
        "Units":"mA",
        "Description":"Current, mA",
        "HWSupport":"FMB001, FMB010, FMB120, FMB122, FMB125, FMB920, FMB962, FMB964",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "241":{
        "No":"15",
@@ -2173,7 +2350,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Currently used GSM Operator code",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint32"
     },
     "199":{
        "No":"16",
@@ -2186,7 +2364,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Trip Odometer value in meters",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint32"
     },
     "16":{
        "No":"17",
@@ -2199,7 +2378,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Total Odometer value in meters",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint32"
     },
     "1":{
        "No":"18",
@@ -2212,7 +2392,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Logic: 0/1",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toBool"
     },
     "9":{
        "No":"19",
@@ -2225,7 +2406,8 @@ const AVLJson string = `{
        "Units":"mV",
        "Description":"Voltage, mV",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "179":{
        "No":"20",
@@ -2238,7 +2420,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Logic: 0/1",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "12":{
        "No":"21",
@@ -2251,7 +2434,8 @@ const AVLJson string = `{
        "Units":"ml",
        "Description":"Fuel Used, ml",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint32"
     },
     "13":{
        "No":"22",
@@ -2264,7 +2448,8 @@ const AVLJson string = `{
        "Units":"l/h,*100",
        "Description":"Average Fuel Use, l/h",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "17":{
        "No":"23",
@@ -2277,7 +2462,8 @@ const AVLJson string = `{
        "Units":"mG",
        "Description":"X axis value, mG",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "18":{
        "No":"24",
@@ -2290,7 +2476,8 @@ const AVLJson string = `{
        "Units":"mG",
        "Description":"Y axis value, mG",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "19":{
        "No":"25",
@@ -2303,7 +2490,8 @@ const AVLJson string = `{
        "Units":"mG",
        "Description":"Z axis value, mG",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "11":{
        "No":"26",
@@ -2316,7 +2504,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Value of SIM ICCID, MSB",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "10":{
        "No":"27",
@@ -2329,7 +2518,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - not present 1 - present",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toBool"
     },
     "2":{
        "No":"28",
@@ -2342,7 +2532,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Logic: 0/1",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toBool"
     },
     "3":{
        "No":"29",
@@ -2355,7 +2546,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Logic: 0/1",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toBool"
     },
     "6":{
        "No":"30",
@@ -2368,7 +2560,8 @@ const AVLJson string = `{
        "Units":"mV",
        "Description":"Voltage, mV",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "180":{
        "No":"31",
@@ -2381,7 +2574,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Logic: 0/1",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "72":{
        "No":"32",
@@ -2394,7 +2588,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -55 - +115, if 3000 – Dallas error",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt32"
     },
     "73":{
        "No":"33",
@@ -2407,7 +2602,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -55 - +115, if 3000 – Dallas error",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt32"
     },
     "74":{
        "No":"34",
@@ -2420,7 +2616,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -55 - +115, if 3000 – Dallas error",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt32"
     },
     "75":{
        "No":"35",
@@ -2433,7 +2630,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -55 - +115, if 3000 – Dallas error",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt32"
     },
     "76":{
        "No":"36",
@@ -2446,7 +2644,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Dallas sensor ID",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "77":{
        "No":"37",
@@ -2459,7 +2658,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Dallas sensor ID",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "79":{
        "No":"38",
@@ -2472,7 +2672,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Dallas sensor ID",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "71":{
        "No":"39",
@@ -2485,7 +2686,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Dallas sensor ID",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "78":{
        "No":"40",
@@ -2498,7 +2700,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"iButton ID",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "207":{
        "No":"41",
@@ -2511,7 +2714,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"RFID ID",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "201":{
        "No":"42",
@@ -2524,7 +2728,8 @@ const AVLJson string = `{
        "Units":"kvants or ltr",
        "Description":"Fuel level measured by LLS sensor via RS232 in kvants or liters",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "202":{
        "No":"43",
@@ -2537,7 +2742,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Fuel temperature measured by LLS via RS232 in degrees Celsius",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt8"
     },
     "203":{
        "No":"44",
@@ -2550,7 +2756,8 @@ const AVLJson string = `{
        "Units":"kvants or ltr",
        "Description":"Fuel level measured by LLS sensor via RS232 in kvants or liters",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "204":{
        "No":"45",
@@ -2563,7 +2770,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Fuel temperature measured by LLS via RS232 in degrees Celsius",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt8"
     },
     "210":{
        "No":"46",
@@ -2576,7 +2784,8 @@ const AVLJson string = `{
        "Units":"kvants or ltr",
        "Description":"Fuel level measured by LLS sensor via RS232 in kvants or liters",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "211":{
        "No":"47",
@@ -2589,7 +2798,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Fuel temperature measured by LLS via RS232 in degrees Celsius",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt8"
     },
     "212":{
        "No":"48",
@@ -2602,7 +2812,8 @@ const AVLJson string = `{
        "Units":"kvants or ltr",
        "Description":"Fuel level measured by LLS sensor via RS232 in kvants or liters",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "213":{
        "No":"49",
@@ -2615,7 +2826,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Fuel temperature measured by LLS via RS232 in degrees Celsius",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt8"
     },
     "214":{
        "No":"50",
@@ -2628,7 +2840,8 @@ const AVLJson string = `{
        "Units":"kvants or ltr",
        "Description":"Fuel level measured by LLS sensor via RS232 in kvants or liters",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "215":{
        "No":"51",
@@ -2641,7 +2854,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Fuel temperature measured by LLS via RS232 in degrees Celsius",
        "HWSupport":"FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt8"
     },
     "15":{
        "No":"52",
@@ -2654,7 +2868,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Average amount of events on some distance",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "113":{
        "No":"53",
@@ -2667,7 +2882,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"FM devices battery capacity level in %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "116":{
        "No":"54",
@@ -2680,7 +2896,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - charger is not connected 1 - charger is connected",
        "HWSupport":"TMT250",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "238":{
        "No":"55",
@@ -2693,7 +2910,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"MAC address of NMEA receiver device connected via Bluetooth",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "25":{
        "No":"56",
@@ -2706,7 +2924,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -40 - +125; Error codes:4000 - abnormal sensor state 3000 - sensor not found 2000 - failed sensor data parsing",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "26":{
        "No":"57",
@@ -2719,7 +2938,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -40 - +125; Error codes:4000 - abnormal sensor state 3000 - sensor not found 2000 - failed sensor data parsing",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "27":{
        "No":"58",
@@ -2732,7 +2952,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -40 - +125; Error codes:4000 - abnormal sensor state 3000 - sensor not found 2000 - failed sensor data parsing",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "28":{
        "No":"59",
@@ -2745,7 +2966,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Degrees ( °C ), -40 - +125; Error codes:4000 - abnormal sensor state 3000 - sensor not found 2000 - failed sensor data parsing",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toInt16"
     },
     "29":{
        "No":"60",
@@ -2758,7 +2980,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Battery voltage of sensor #1",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "20":{
        "No":"61",
@@ -2771,7 +2994,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Battery voltage of sensor #2",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "22":{
        "No":"62",
@@ -2784,7 +3008,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Battery voltage of sensor #3",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "23":{
        "No":"63",
@@ -2797,7 +3022,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Battery voltage of sensor #4",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "86":{
        "No":"64",
@@ -2810,7 +3036,8 @@ const AVLJson string = `{
        "Units":"%RH",
        "Description":"Relative humidity",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "104":{
        "No":"65",
@@ -2823,7 +3050,8 @@ const AVLJson string = `{
        "Units":"%RH",
        "Description":"Relative humidity",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "106":{
        "No":"66",
@@ -2836,7 +3064,8 @@ const AVLJson string = `{
        "Units":"%RH",
        "Description":"Relative humidity",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "108":{
        "No":"67",
@@ -2849,8 +3078,23 @@ const AVLJson string = `{
        "Units":"%RH",
        "Description":"Relative humidity",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010, TMT250, GH5200",
-       "Parametr Group":"Permanent I/O elements"
-    },
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
+      },
+     "109":{
+         "No":"unknown",
+         "PropertyName":"Delimiter",
+         "Bytes":"Variable",
+         "Type":"Unsigned",
+         "Min":"",
+         "Max":"",
+         "Multiplier":"-",
+         "Units":"",
+         "Description":"Packet received on RS232",
+         "HWSupport":"",
+         "Parametr Group":"",
+         "FinalConversion":"to[]byte"
+     },
     "237":{
        "No":"68",
        "PropertyName":"Network Type",
@@ -2862,7 +3106,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 - 3G 1 - 2G",
        "HWSupport":"FM3001, FM3010",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "8":{
        "No":"69",
@@ -2875,20 +3120,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"If ID is shown in this I/O that means that attached iButton is in iButton List",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
-    },
-    "4":{
-       "No":"70",
-       "PropertyName":"Pulse Counter Din1",
-       "Bytes":"4",
-       "Type":"Unsigned",
-       "Min":"0",
-       "Max":"4294967295",
-       "Multiplier":"-",
-       "Units":"-",
-       "Description":"Counts pulses, count is reset when recors is saved",
-       "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"to[]byte"
     },
     "5":{
        "No":"71",
@@ -2901,7 +3134,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Counts pulses, count is reset when recors is saved",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint32"
     },
     "7":{
        "No":"72",
@@ -2914,7 +3148,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Shows record count left in device memory.",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint16"
     },
     "117":{
        "No":"73",
@@ -2927,7 +3162,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"0 – Unknown 1 – Forward 2 – Backward",
        "HWSupport":"HW with gyro (LSM6DSL)",
-       "Parametr Group":"Permanent I/O elements"
+       "Parametr Group":"Permanent I/O elements",
+       "FinalConversion":"toUint8"
     },
     "256":{
        "No":"74",
@@ -2940,7 +3176,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"VIN number",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toString"
     },
     "30":{
        "No":"75",
@@ -2953,7 +3190,8 @@ const AVLJson string = `{
        "Units":"-",
        "Description":"Number of DTC",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "31":{
        "No":"76",
@@ -2966,7 +3204,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Calculated engine load value, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "32":{
        "No":"77",
@@ -2979,7 +3218,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Engine coolant temperature, °C",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt8"
     },
     "33":{
        "No":"78",
@@ -2992,7 +3232,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Short term fuel trim 1, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt8"
     },
     "34":{
        "No":"79",
@@ -3005,7 +3246,8 @@ const AVLJson string = `{
        "Units":"kPa",
        "Description":"Fuel pressure, kPa",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "35":{
        "No":"80",
@@ -3018,7 +3260,8 @@ const AVLJson string = `{
        "Units":"kPa",
        "Description":"Intake manifold absolute pressure, kPa",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "36":{
        "No":"81",
@@ -3031,7 +3274,8 @@ const AVLJson string = `{
        "Units":"rpm",
        "Description":"EngineRPM, rpm",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "37":{
        "No":"82",
@@ -3044,7 +3288,8 @@ const AVLJson string = `{
        "Units":"km/h",
        "Description":"Vehicle speed, km/h",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "38":{
        "No":"83",
@@ -3057,7 +3302,8 @@ const AVLJson string = `{
        "Units":"°",
        "Description":"Timing advance, degrees °",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt16"
     },
     "39":{
        "No":"84",
@@ -3070,7 +3316,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Intake air temperature, °C",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt8"
     },
     "40":{
        "No":"85",
@@ -3083,7 +3330,8 @@ const AVLJson string = `{
        "Units":"g/sec",
        "Description":"MAF air flow rate, g/sec",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "41":{
        "No":"86",
@@ -3096,7 +3344,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Throttle position, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "42":{
        "No":"87",
@@ -3109,7 +3358,8 @@ const AVLJson string = `{
        "Units":"s",
        "Description":"Run time since engine start, s",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "43":{
        "No":"88",
@@ -3122,7 +3372,8 @@ const AVLJson string = `{
        "Units":"km",
        "Description":"Distance ormattin MIL on, km",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "44":{
        "No":"89",
@@ -3135,7 +3386,8 @@ const AVLJson string = `{
        "Units":"kPa",
        "Description":"Relative fuel rail pressure, kPa",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "45":{
        "No":"90",
@@ -3148,7 +3400,8 @@ const AVLJson string = `{
        "Units":"kPa",
        "Description":"Direct fuel rail pressure, kPa",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "46":{
        "No":"91",
@@ -3161,7 +3414,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Commanded EGR, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "47":{
        "No":"92",
@@ -3174,7 +3428,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"EGR error, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt8"
     },
     "48":{
        "No":"93",
@@ -3187,7 +3442,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Fuel level, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "49":{
        "No":"94",
@@ -3200,7 +3456,8 @@ const AVLJson string = `{
        "Units":"km",
        "Description":"Distance ormattin since codes cleared, km",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "50":{
        "No":"95",
@@ -3213,7 +3470,8 @@ const AVLJson string = `{
        "Units":"kPa",
        "Description":"Barometric pressure, kPa",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "51":{
        "No":"96",
@@ -3226,7 +3484,8 @@ const AVLJson string = `{
        "Units":"mV",
        "Description":"Control module voltage, mV",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "52":{
        "No":"97",
@@ -3239,7 +3498,8 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Absolute load value, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "53":{
        "No":"98",
@@ -3252,7 +3512,8 @@ const AVLJson string = `{
        "Units":"°C",
        "Description":"Ambient air temperature, °C",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt8"
     },
     "54":{
        "No":"99",
@@ -3265,7 +3526,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Time run with MIL on, min",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "55":{
        "No":"100",
@@ -3278,7 +3540,8 @@ const AVLJson string = `{
        "Units":"min",
        "Description":"Time since trouble codes cleared, min",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "56":{
        "No":"101",
@@ -3291,7 +3554,8 @@ const AVLJson string = `{
        "Units":"kPa",
        "Description":"Absolute fuel rail pressure, kPa",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "57":{
        "No":"102",
@@ -3304,20 +3568,22 @@ const AVLJson string = `{
        "Units":"%",
        "Description":"Hybrid battery pack remaining life, %",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint8"
     },
     "58":{
        "No":"103",
        "PropertyName":"Engine Oil Temperature",
        "Bytes":"1",
-       "Type":"Unsigned",
+       "Type":"Signed",
        "Min":"-128",
        "Max":"127",
        "Multiplier":"-",
        "Units":"°C",
        "Description":"Engine oil temperature, °C",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt8"
     },
     "59":{
        "No":"104",
@@ -3330,7 +3596,8 @@ const AVLJson string = `{
        "Units":"°",
        "Description":"Fuel injection timing, degrees °",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toInt16"
     },
     "60":{
        "No":"105",
@@ -3343,7 +3610,8 @@ const AVLJson string = `{
        "Units":"l/100km",
        "Description":"Engine fuel rate, l/100km",
        "HWSupport":"FMB001, FMB010, FMB100, FMB110, FMB120, FMB122, FMB125, FMB900, FMB920, FMB962, FMB964, FM3001, FM3010",
-       "Parametr Group":"OBD elements"
+       "Parametr Group":"OBD elements",
+       "FinalConversion":"toUint16"
     },
     "81":{
        "No":"106",
@@ -3356,6 +3624,7 @@ const AVLJson string = `{
        "Units":"km/h",
        "Description":"Value in km/h",
        "HWSupport":"FMB100, FMB110, FMB120, FMB122, FMB125",
-       "Parametr Group":"LVCAN elements"
+       "Parametr Group":"LVCAN elements",
+       "FinalConversion":"toUint8"
     }
  }`
