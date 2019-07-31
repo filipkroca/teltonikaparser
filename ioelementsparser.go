@@ -11,7 +11,7 @@ import (
 	"github.com/filipkroca/b2n"
 )
 
-//DecodeIOElements take pointer to a byte slice with raw data, start Byte position and Codec ID, and returns slice of IOElement
+// DecodeIOElements take pointer to a byte slice with raw data, start Byte position and Codec ID, and returns slice of IOElement
 func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, error) {
 
 	var totalElements int
