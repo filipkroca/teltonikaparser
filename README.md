@@ -9,6 +9,56 @@ Package teltonikaparser is a very fast, low-level implementation, it can decode 
 Performace:
 Decode()   788 ns/op 592 B/op 4 allocs/op
 
+Output:
+
+## type Decoded
+
+```go
+type Decoded struct {
+    IMEI     string    //IMEI number, if len==15 also validated by checksum
+    CodecID  byte      //0x08 (codec 8) or 0x8E (codec 8 extended)
+    NoOfData uint8     //Number of Data
+    Data     []AvlData //Slice with avl data
+}
+```
+
+## type AvlData
+
+```go
+type AvlData struct {
+    UtimeMs    uint64      //Utime in mili seconds
+    Utime      uint64      //Utime in seconds
+    Priority   uint8       //Priority, 	[0	Low, 1	High, 2	Panic]
+    Lat        int32       //Latitude (between 850000000 and -850000000), fit int32
+    Lng        int32       //Longitude (between 1800000000 and -1800000000), fit int32
+    Altitude   int16       //Altitude In meters above sea level, 2 bytes
+    Angle      uint16      //Angle In degrees, 0 is north, increasing clock-wise, 2 bytes
+    VisSat     uint8       //Satellites Number of visible satellites
+    Speed      uint16      //Speed in km/h
+    EventID    uint16      //Event generated (0 – data generated not on event)
+    IOElements []IOElement //Slice containing parsed IO Elements
+}
+```
+
+## type AvlIO
+
+```go
+type AvlIO struct {
+    No              string `json:"No"`
+    PropertyName    string `json:"PropertyName"`
+    Bytes           string `json:"Bytes"`
+    Type            string `json:"Type"`
+    Min             string `json:"Min"`
+    Max             string `json:"Max"`
+    Multiplier      string `json:"Multiplier"`
+    Units           string `json:"Units"`
+    Description     string `json:"Description"`
+    HWSupport       string `json:"HWSupport"`
+    ParametrGroup   string `json:"Parametr Group"`
+    FinalConversion string `json:"FinalConversion"`
+}
+```
+
 ## Human readable
 
 This package also provides method (h *HAvlData) GetFinalValue() which can convert values to human-readable form.
