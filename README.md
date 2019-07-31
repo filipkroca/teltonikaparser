@@ -109,6 +109,7 @@ func main() {
                 if val, err := (*decoded).GetFinalValue(); err != nil {
                 log.Panicf("Unable to GetFinalValue() %v", err)
                 } else if val != nil {
+                // print output
                 fmt.Printf("%v : %v %v multiplier %v\n", (*decoded).AvlIO.PropertyName, val, (*decoded).AvlIO.Units, (*decoded).AvlIO.Multiplier)
                 }
         }
