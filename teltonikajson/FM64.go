@@ -1432,6 +1432,20 @@ const FM64 string = `{
 	   "Parametr Group":"FMS elements",
 	   "FinalConversion":"toUint8"
 	},
+	"111":{
+		"No":"",
+		"PropertyName":"Requests supported",
+		"Bytes":"1",
+		"Type":"Unsigned",
+		"Min":"0",
+		"Max":"3",
+		"Multiplier":"-",
+		"Units":"-",
+		"Description":"0 – On request mode is Not supported; 1– On request mode is Supported; 2 – reserved; 3 – Not available;",
+		"HWSupport":"FMB640",
+		"Parametr Group":"FMS elements",
+		"FinalConversion":"toUint8"
+	 },
 	"113":{
 	   "No":"",
 	   "PropertyName":"Service Distance",
@@ -1444,8 +1458,22 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toInt64"
+	   "FinalConversion":"toInt32"
 	},
+	"139":{
+		"No":"",
+		"PropertyName":"Gross Combination Vehicle Weight",
+		"Bytes":"4",
+		"Type":"Unsigned",
+		"Min":"0",
+		"Max":"642550",
+		"Multiplier":"-",
+		"Units":"kg",
+		"Description":"",
+		"HWSupport":"FMB640",
+		"Parametr Group":"FMS elements",
+		"FinalConversion":"toUint32"
+	 },
 	"122":{
 	   "No":"",
 	   "PropertyName":"Direction Indication",
@@ -4133,6 +4161,76 @@ const FM64 string = `{
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"Tachograph data elements",
 	   "FinalConversion":"toUint8"
+	},
+	"229":{
+		"No":"",
+		"PropertyName":"LVCAN Driver1 ID High",
+		"Bytes":"8",
+		"Type":"Unsigned",
+		"Min":"-",
+		"Max":"-",
+		"Multiplier":"-",
+		"Units":"-",
+		"Description":"Driver1 ID High",
+		"HWSupport":"FMB640",
+		"Parametr Group":"LVCAN",
+		"FinalConversion":"to[]byte"
+	},
+	"230":{
+		"No":"",
+		"PropertyName":"LVCAN Driver1 ID Low",
+		"Bytes":"8",
+		"Type":"Unsigned",
+		"Min":"-",
+		"Max":"-",
+		"Multiplier":"-",
+		"Units":"-",
+		"Description":"Driver1 ID Low",
+		"HWSupport":"FMB640",
+		"Parametr Group":"LVCAN",
+		"FinalConversion":"to[]byte"
+	},
+	"108":{
+		"No":"",
+		"PropertyName":"LVCAN Driver2 ID High",
+		"Bytes":"8",
+		"Type":"Unsigned",
+		"Min":"-",
+		"Max":"-",
+		"Multiplier":"-",
+		"Units":"-",
+		"Description":"Driver2 ID High",
+		"HWSupport":"FMB640",
+		"Parametr Group":"LVCAN",
+		"FinalConversion":"to[]byte"
+	},
+	"109":{
+		"No":"",
+		"PropertyName":"SW-version supported",
+		"Bytes":"4",
+		"Type":"Unsigned",
+		"Min":"-",
+		"Max":"-",
+		"Multiplier":"-",
+		"Units":"-",
+		"Description":"4 ASCII bytes (Version format – ab.cd)",
+		"HWSupport":"FMB640",
+		"Parametr Group":"LVCAN",
+		"FinalConversion":"to[]byte"
+	},
+	"140":{
+		"No":"",
+		"PropertyName":"LVCAN Driver2 ID Low",
+		"Bytes":"8",
+		"Type":"Unsigned",
+		"Min":"-",
+		"Max":"-",
+		"Multiplier":"-",
+		"Units":"-",
+		"Description":"Driver2 ID Low",
+		"HWSupport":"FMB640",
+		"Parametr Group":"LVCAN",
+		"FinalConversion":"to[]byte"
 	},
 	"184":{
 	   "No":"",

@@ -23,7 +23,7 @@ func ExampleDecode() {
 	fmt.Printf("%+v", decoded)
 
 	// Output:
-	// {IMEI:352094081672179 CodecID:8 NoOfData:2 Data:[{UtimeMs:1564218788000 Utime:1564218788 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:241 IOElements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[0]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 139]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]} {UtimeMs:1564218789000 Utime:1564218789 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:21 IOElements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[1]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 149]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]}]}
+	// {IMEI:352094081672179 CodecID:8 NoOfData:2 Data:[{UtimeMs:1564218788000 Utime:1564218788 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:241 Elements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[0]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 139]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]} {UtimeMs:1564218789000 Utime:1564218789 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:21 Elements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[1]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 149]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]}]}
 }
 
 func ExampleHumanDecoder() {
@@ -42,8 +42,8 @@ func ExampleHumanDecoder() {
 
 	// loop over raw data
 	for _, val := range decoded.Data {
-		// loop over IOElements
-		for _, ioel := range val.IOElements {
+		// loop over Elements
+		for _, ioel := range val.Elements {
 			// decode to human readable format
 			decoded, err := humanDecoder.Human(&ioel, "FMBXY")
 			if err != nil {
@@ -51,7 +51,7 @@ func ExampleHumanDecoder() {
 				return
 			}
 
-			fmt.Printf("%v : %v\n", (*decoded).AvlIO.PropertyName, (*decoded).IOElement.Value)
+			fmt.Printf("%v : %v\n", (*decoded).AvlIO.PropertyName, (*decoded).Element.Value)
 
 		}
 	}
@@ -73,7 +73,7 @@ func ExampleHumanDecoder() {
 	// GSM Cell ID : [66 220]
 	// GSM Area Code : [96 100]
 	// Active GSM Operator : [0 0 89 217]
-	// {IMEI:352094081672179 CodecID:8 NoOfData:2 Data:[{UtimeMs:1564218788000 Utime:1564218788 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:241 IOElements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[0]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 139]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]} {UtimeMs:1564218789000 Utime:1564218789 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:21 IOElements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[1]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 149]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]}]}
+	// {IMEI:352094081672179 CodecID:8 NoOfData:2 Data:[{UtimeMs:1564218788000 Utime:1564218788 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:241 Elements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[0]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 139]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]} {UtimeMs:1564218789000 Utime:1564218789 Priority:0 Lat:175781500 Lng:489685383 Altitude:0 Angle:0 VisSat:0 Speed:0 EventID:21 Elements:[{Length:1 IOID:1 Value:[0]} {Length:1 IOID:21 Value:[1]} {Length:1 IOID:239 Value:[0]} {Length:2 IOID:66 Value:[49 149]} {Length:2 IOID:205 Value:[66 220]} {Length:2 IOID:206 Value:[96 100]} {Length:4 IOID:241 Value:[0 0 89 217]}]}]}
 
 }
 
@@ -93,8 +93,8 @@ func ExampleHAvlDataGetFinalValue() {
 
 	// loop over raw data
 	for _, val := range decoded.Data {
-		// loop over IOElements
-		for _, ioel := range val.IOElements {
+		// loop over Elements
+		for _, ioel := range val.Elements {
 			// decode to human readable format
 			decoded, err := humanDecoder.Human(&ioel, "FMBXY")
 			if err != nil {
@@ -143,8 +143,8 @@ func BenchmarkHAvlDataGetFinalValue(b *testing.B) {
 
 		// loop over raw data
 		for _, val := range decoded.Data {
-			// loop over IOElements
-			for _, ioel := range val.IOElements {
+			// loop over Element
+			for _, ioel := range val.Element
 				// decode to human readable format
 				_, err := humanDecoder.Human(&ioel, "FMBXY")
 				if err != nil {

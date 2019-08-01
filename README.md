@@ -36,7 +36,7 @@ type AvlData struct {
     VisSat     uint8       // Satellites Number of visible satellites
     Speed      uint16      // Speed in km/h
     EventID    uint16      // Event generated (0 – data generated not on event)
-    IOElements []IOElement // Slice containing parsed IO Elements
+    Elements []Element // Slice containing parsed IO Elements
 }
 ```
 
@@ -97,8 +97,8 @@ func main() {
 
     // loop over raw data
     for _, val := range decoded.Data {
-        // loop over IOElements
-        for _, ioel := range val.IOElements {
+        // loop over Elements
+        for _, ioel := range val.Elements {
                 // decode to human readable format
                 decoded, err := humanDecoder.Human(&ioel, "FMBXY") // second parameter - device family type ["FMBXY", "FM64"]
                 if err != nil {

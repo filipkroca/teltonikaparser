@@ -6,13 +6,12 @@ package teltonikaparser
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/filipkroca/b2n"
 )
 
-// DecodeIOElements take pointer to a byte slice with raw data, start Byte position and Codec ID, and returns slice of IOElement
-func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, error) {
+// DecodeElements take pointer to a byte slice with raw data, start Byte position and Codec ID, and returns slice of Element
+func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error) {
 
 	var totalElements int
 	codecLenDel := 1
@@ -33,7 +32,7 @@ func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, er
 	}
 	totalElementsChecksum := 0
 	//make a slice
-	ioElementsBS := make([]IOElement, 0, totalElements)
+	ElementsBS := make([]Element, 0, totalElements)
 
 	//start parsing data
 	nextByte := start + codecLenDel
@@ -48,7 +47,7 @@ func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, er
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		//append element to the returned slice
-		ioElementsBS = append(ioElementsBS, cutIO(bs, nextByte, codecLenDel, 1))
+		ElementsBS = append(ElementsBS, cutIO(bs, nextByte, codecLenDel, 1))
 		nextByte += codecLenDel + 1
 		totalElementsChecksum++
 	}
@@ -63,7 +62,7 @@ func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, er
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		//append element to the returned slice
-		ioElementsBS = append(ioElementsBS, cutIO(bs, nextByte, codecLenDel, 2))
+		ElementsBS = append(ElementsBS, cutIO(bs, nextByte, codecLenDel, 2))
 		nextByte += codecLenDel + 2
 		totalElementsChecksum++
 	}
@@ -78,7 +77,7 @@ func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, er
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		//append element to the returned slice
-		ioElementsBS = append(ioElementsBS, cutIO(bs, nextByte, codecLenDel, 4))
+		ElementsBS = append(ElementsBS, cutIO(bs, nextByte, codecLenDel, 4))
 		nextByte += codecLenDel + 4
 		totalElementsChecksum++
 	}
@@ -93,7 +92,7 @@ func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, er
 
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		//append element to the returned slice
-		ioElementsBS = append(ioElementsBS, cutIO(bs, nextByte, codecLenDel, 8))
+		ElementsBS = append(ElementsBS, cutIO(bs, nextByte, codecLenDel, 8))
 		nextByte += codecLenDel + 8
 		totalElementsChecksum++
 	}
@@ -107,25 +106,25 @@ func DecodeIOElements(bs *[]byte, start int, codecID byte) ([]IOElement, int, er
 
 		for ioB := 0; ioB < noOfElements; ioB++ {
 			//append element to the returned slice
-			ioElementsBS = append(ioElementsBS, cutIOxLen(bs, nextByte))
+			ElementsBS = append(ElementsBS, cutIOxLen(bs, nextByte))
 			nextByte += codecLenDel + 2
 			totalElementsChecksum++
 		}
 	}
 
 	if totalElementsChecksum != totalElements {
-		log.Fatalf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
-		return []IOElement{}, 0, fmt.Errorf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
+		//log.Fatalf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
+		return []Element{}, 0, fmt.Errorf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
 	}
 
-	return ioElementsBS, nextByte, nil
+	return ElementsBS, nextByte, nil
 
 }
 
-func cutIO(bs *[]byte, start int, idLen int, len int) IOElement {
-	curIO := IOElement{}
+func cutIO(bs *[]byte, start int, idLen int, length int) Element {
+	curIO := Element{}
 	//determine length of this sized elements (num. of 1Bytes elements, num. of 2Bytes elements ...)
-	curIO.Length = uint16(len)
+	curIO.Length = uint16(length)
 
 	//parse element ID according to the length of ID [1, 2] Byte
 	if idLen == 1 {
@@ -134,13 +133,19 @@ func cutIO(bs *[]byte, start int, idLen int, len int) IOElement {
 		curIO.IOID = b2n.ParseBs2Uint16(bs, start)
 	}
 
-	curIO.Value = (*bs)[start+idLen : start+idLen+len]
+	if (start+idLen+length) < len(*bs) {
+		//log.Fatalf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
+		//return Element{}, fmt.Errorf("cutIO error, want minimum length of bs %v, got %v", start+idLen+length, len(*bs))
+		return Element{}
+	}
+
+	curIO.Value = (*bs)[start+idLen : start+idLen+length]
 
 	return curIO
 }
 
-func cutIOxLen(bs *[]byte, start int) IOElement {
-	curIO := IOElement{}
+func cutIOxLen(bs *[]byte, start int) Element {
+	curIO := Element{}
 
 	//parse element ID according to the length of ID [1, 2] Byte
 	curIO.IOID = b2n.ParseBs2Uint16(bs, start)
