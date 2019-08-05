@@ -2271,7 +2271,7 @@ const FMBXY string = `{
     },
     "24":{
        "No":"10",
-       "PropertyName":"Speed*",
+       "PropertyName":"Speed",
        "Bytes":"2",
        "Type":"Unsigned",
        "Min":"0",
@@ -2873,7 +2873,7 @@ const FMBXY string = `{
     },
     "113":{
        "No":"53",
-       "PropertyName":"Battery Level *",
+       "PropertyName":"Battery Level",
        "Bytes":"1",
        "Type":"Unsigned",
        "Min":"0",
@@ -3279,7 +3279,7 @@ const FMBXY string = `{
     },
     "37":{
        "No":"82",
-       "PropertyName":"Vehicle Speed*",
+       "PropertyName":"Vehicle Speed",
        "Bytes":"1",
        "Type":"Unsigned",
        "Min":"0",

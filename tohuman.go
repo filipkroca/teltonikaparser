@@ -95,6 +95,13 @@ func (h *HumanDecoder) loadElements() {
 // GetFinalValue return decimal value, if necesarry with float, return should be empty interface because there is many values to return
 func (h *HAvlData) GetFinalValue() (interface{}, error) {
 
+	if h.AvlEncodeKey.FinalConversion == "toBool" {
+		if h.AvlEncodeKey.Bytes != "1" || h.AvlEncodeKey.Type != "Unsigned" || len(h.Element.Value) != 1 {
+			return nil, fmt.Errorf("Unable to convert %vBytes long parametr, %vBytes real long parametr to Bool %v", h.AvlEncodeKey.Bytes, len(h.Element.Value), h.AvlEncodeKey.PropertyName)
+		}
+		return (h.Element.Value[0] == 0x01), nil
+	}
+
 	if h.AvlEncodeKey.FinalConversion == "toUint8" {
 		if h.AvlEncodeKey.Bytes != "1" || h.AvlEncodeKey.Type != "Unsigned" || len(h.Element.Value) != 1 {
 			return nil, fmt.Errorf("Unable to convert %vBytes long parametr, %vBytes real long parametr to Uint8 %v", h.AvlEncodeKey.Bytes, len(h.Element.Value), h.AvlEncodeKey.PropertyName)
