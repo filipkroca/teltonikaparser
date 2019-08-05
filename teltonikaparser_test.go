@@ -114,3 +114,39 @@ func BenchmarkDecode(b *testing.B) {
 		}
 	}
 }
+
+func BenchmarkHuman(b *testing.B) {
+	stringData := `0086cafe0101000f3335323039333038353639383230368e0100000167efa919800200000000000000000000000000000000fc0013000800ef0000f00000150500c80000450200010000710000fc00000900b5000000b600000042305600cd432a00ce6064001100090012ff22001303d1000f0000000200f1000059d900100000000000000000010086cafe0191000f3335323039333038353639383230368e0100000167efad92080200000000000000000000000000000000fc0013000800ef0000f00000150500c80000450200010000715800fc01000900b5000000b600000042039d00cd432a00ce60640011015f0012fd930013036f000f0000000200f1000059d900100000000000000000010086cafe01a0000f3335323039333038353639383230368e01000000f9cebaeac80200000000000000000000000000000000fc0013000800ef0000f00000150000c80000450200010000710000fc00000900b5000000b600000042305400cd000000ce0000001103570012fe8900130196000f0000000200f10000000000100000000000000000010083cafe0101000f3335323039333038353639383230368e0100000167f1aeec00000a750e8f1d43443100f800b210000000000012000700ef0000f00000150500c800004501000100007142000900b5000600b6000500422fb300cd432a00ce60640011000700120007001303ec000f0000000200f1000059d90010000000000000000001`
+
+	bs, _ := hex.DecodeString(stringData)
+	// initialize a human decoder
+	humanDecoder := HumanDecoder{}
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+
+		// decode a raw data byte slice
+		parsedData, err := Decode(&bs)
+		if err != nil {
+			log.Panicf("Error when decoding a bs, %v\n", err)
+		}
+
+		// loop over raw data
+		for _, val := range parsedData.Data {
+			// loop over Elements
+			for _, ioel := range val.Elements {
+				// decode to human readable format
+				decoded, err := humanDecoder.Human(&ioel, "FMBXY") // second parameter - device family type ["FMBXY", "FM64"]
+				if err != nil {
+					log.Panicf("Error when converting human, %v\n", err)
+				}
+
+				// get final decoded value to value which is specified in ./teltonikajson/ in paramether FinalConversion
+				if _, err := (*decoded).GetFinalValue(); err != nil {
+					log.Panicf("Unable to GetFinalValue() %v", err)
+				}
+			}
+		}
+	}
+}
