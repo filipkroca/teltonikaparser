@@ -6,7 +6,6 @@ package teltonikaparser
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 
@@ -50,14 +49,12 @@ func (h *HumanDecoder) Human(el *Element, device string) (*HAvlData, error) {
 
 	// check if Element is valid
 	if !((*el).Length > 0 && (*el).IOID > 0 && len((*el).Value) > 0) {
-		//log.Fatal("Unable to decode empty element")
-		return nil, errors.New("Unable to decode empty element")
+		return nil, fmt.Errorf("Unable to decode empty element")
 	}
 
 	// find decode key and pair it
 	avl, ok := h.elements[device][(*el).IOID]
 	if !ok {
-		//log.Fatalf("Unknown element %v", (*el).IOID)
 		return nil, fmt.Errorf("Unknown element %v", (*el).IOID)
 	}
 
@@ -87,7 +84,6 @@ func (h *HumanDecoder) loadElements() {
 	// read our opened xmlFile as a byte array.
 	byteValue = []byte(teltonikajson.FM64)
 	fm64 := make(map[uint16]AvlEncodeKey)
-	//h.elements["FMBXY"] = make(map[uint16]AvlEncodeKey)
 	err = json.Unmarshal(byteValue, &fm64)
 	if err != nil {
 		log.Panic(err)

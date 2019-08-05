@@ -62,7 +62,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 	// determine bit number where start data, it can change because of IMEI length
 	imeiLenX, err := b2n.ParseBs2Uint8(bs, 7)
 	if err != nil {
-		return Decoded{}, err
+		return Decoded{}, fmt.Errorf("Decode error, %v", err)
 	}
 	imeiLen := int(imeiLenX)
 
@@ -74,7 +74,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 	// decode and validate IMEI
 	decoded.IMEI, err = b2n.ParseIMEI(bs, 8, imeiLen)
 	if err != nil {
-		return Decoded{}, err
+		return Decoded{}, fmt.Errorf("Decode error, %v", err)
 	}
 
 	// count start bit for data
@@ -92,7 +92,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 	// determine no of data in packet
 	decoded.NoOfData, err = b2n.ParseBs2Uint8(bs, nextByte)
 	if err != nil {
-		return Decoded{}, err
+		return Decoded{}, fmt.Errorf("Decode error, %v", err)
 	}
 
 	// increment nextByte counter
@@ -100,15 +100,15 @@ func Decode(bs *[]byte) (Decoded, error) {
 
 	// make slice for decoded data
 	decoded.Data = make([]AvlData, 0, decoded.NoOfData)
-
 	// go through data
 	for i := 0; i < int(decoded.NoOfData); i++ {
+
 		decodedData := AvlData{}
 
 		// time record in ms has 8 Bytes
 		decodedData.UtimeMs, err = b2n.ParseBs2Uint64(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 
 		decodedData.Utime = uint64(decodedData.UtimeMs / 1000)
@@ -117,7 +117,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 		// parse priority
 		decodedData.Priority, err = b2n.ParseBs2Uint8(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 
 		nextByte++
@@ -125,7 +125,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 		// parse and validate GPS
 		decodedData.Lat, err = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 
 		if !(decodedData.Lat > -850000000 && decodedData.Lat < 850000000) {
@@ -134,7 +134,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 		nextByte += 4
 		decodedData.Lng, err = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 		if !(decodedData.Lng > -1800000000 && decodedData.Lng < 1800000000) {
 			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -1800000000 AND lat < 1800000000, got %v", decodedData.Lng)
@@ -144,7 +144,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 		// parse Altitude
 		decodedData.Altitude, err = b2n.ParseBs2Int16TwoComplement(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 		if !(decodedData.Altitude > -5000 && decodedData.Altitude < 12000) {
 			return Decoded{}, fmt.Errorf("Invalid Altitude value, want Altitude > -5000 AND Altitude < 12000, got %v", decodedData.Altitude)
@@ -154,7 +154,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 		// parse Angle
 		decodedData.Angle, err = b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 		if decodedData.Angle > 360 {
 			return Decoded{}, fmt.Errorf("Invalid Angle value, want Angle <= 360, got %v", decodedData.Angle)
@@ -164,14 +164,14 @@ func Decode(bs *[]byte) (Decoded, error) {
 		// parse num. of vissible sattelites VisSat
 		decodedData.VisSat, err = b2n.ParseBs2Uint8(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 		nextByte++
 
 		// parse Speed
 		decodedData.Speed, err = b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 		nextByte += 2
 
@@ -180,14 +180,14 @@ func Decode(bs *[]byte) (Decoded, error) {
 			// if Codec 8 extended is used, Event id has size 2 bytes
 			decodedData.EventID, err = b2n.ParseBs2Uint16(bs, nextByte)
 			if err != nil {
-				return Decoded{}, err
+				return Decoded{}, fmt.Errorf("Decode error, %v", err)
 			}
 
 			nextByte += 2
 		} else {
 			x, err := b2n.ParseBs2Uint8(bs, nextByte)
 			if err != nil {
-				return Decoded{}, err
+				return Decoded{}, fmt.Errorf("Decode error, %v", err)
 			}
 			decodedData.EventID = uint16(x)
 			nextByte++
@@ -195,7 +195,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 
 		decodedIO, endByte, err := DecodeElements(bs, nextByte, decoded.CodecID)
 		if err != nil {
-			return Decoded{}, err
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 
 		nextByte = endByte
