@@ -4,10 +4,10 @@ Certain purpose:
 
 Package teltonikaparser was created for parsing data structures from [Teltonika](https://wiki.teltonika.lt/view/Codec#Codec_8) UDP packets. Package can return a raw data and human readable data, see [examples](#example).
 
-Package teltonikaparser is a very fast, low-level implementation, it can decode over **one milion packets** per second per core. See [bechmarks](https://godoc.org/github.com/filipkroca/teltonikaparser#benchmark-Decode)
+Package teltonikaparser is a very fast, low-level implementation, it can decode over **one milion packets** per second per core. See [GO Concurrency Example](https://godoc.org/github.com/filipkroca/teltonikaparser#benchmark-Decode)
 
 Performace:
-Decode()    788 ns/op   592 B/op    4 allocs/op
+Decode()    788 ns/op   592 B/op    4 allocs/op  
 Human()     4082 ns/op  4722 B/op   49 allocs/op
 
 ## First stage - basic decoding
@@ -221,3 +221,143 @@ Property Name: Total Odometer, Value: 0
 ```
 
 Full documentation [HERE](https://godoc.org/github.com/filipkroca/teltonikaparser)
+
+## Example usage of concurrency pattern
+
+This example was created for testing purpose. It uses a concurrency pattern and load all data from a SQL database to the memory and then uses all CPUs to decoding.  
+It was tested on a bundle of 58 milions - 12GiB real world Teltonika UPD data from devices FMA110, FMB920, FMB110, FMB120, FMB640.
+
+```go
+package main
+
+import (
+    "database/sql"
+    "fmt"
+    "log"
+    "runtime"
+    "sync"
+    "sync/atomic"
+    "time"
+
+    "github.com/filipkroca/teltonikaparser"
+    _ "github.com/go-sql-driver/mysql"
+)
+
+var data []byte
+
+func main() {
+    // init counters for total counting, this is used by atomic operations
+    var errcounter int64
+    var counter int64
+
+    // make a slice for storing all 58254304 byte slices
+    arr := make([][]byte, 58254304) //58254304
+
+    // connect to a database
+    db, err := sql.Open("mysql", "root:password@/binarylogdb")
+    defer db.Close()
+    if err != nil {
+        fmt.Println("error when connecting", err)
+    }
+
+    /*    MySQL structure:
+                CREATE TABLE `binLog` (
+                `utime` int(10) NOT NULL,
+                `bin` blob NOT NULL
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                ALTER TABLE `binLog`
+                  ADD KEY `utime` (`utime`);
+    */
+
+    // select 58254304 rows from SQL
+    rows, err := db.Query("SELECT bin FROM `binlog_archiv` LIMIT 58254304")
+    if err != nil {
+        log.Fatal(err)
+    }
+    // defer databse closing
+    defer rows.Close()
+
+    // load all data into memory
+    i := 0
+    for rows.Next() {
+        err := rows.Scan(&arr[i])
+        if err != nil {
+            log.Fatal(err)
+        }
+        i++
+    }
+    err = rows.Err()
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // init start time
+    now := time.Now()
+    start := now.Unix()
+
+    // init WaitGroup used for synchronization
+    var waitgroup sync.WaitGroup
+
+    // make a channel used for avoiding RACE CONDITION and workers synchronization
+    queue := make(chan int, 10)
+
+    // run 16 workers on different threads and CPUs
+    for i := 0; i < 16; i++ {
+        // fire goroutine with goParse function
+        go goParse(&waitgroup, &arr, queue, &counter, &errcounter)
+    }
+
+    // feed workers by the channel
+    for ind := range arr {
+        waitgroup.Add(1)
+        queue <- ind
+    }
+
+    // block until all workers will be done with parsing
+    waitgroup.Wait()
+
+    // close the channel
+    close(queue)
+
+    // init end timer
+    now = time.Now()
+    stop := now.Unix()
+
+    // print output
+    fmt.Printf("takes: %v seconds\n", stop-start)
+    fmt.Printf("total: %v packets\nerrors: %v invalid packets", atomic.LoadInt64(&counter), atomic.LoadInt64(&errcounter))
+
+}
+
+func goParse(waitgroup *sync.WaitGroup, bs *[][]byte, queue chan int, counter *int64, errcounter *int64) {
+    // wait for a work comming by the channel, range is blocking operation
+    for element := range queue {
+
+        // increment total packet counter by atomic operation to avoid RACE CONDITION
+        atomic.AddInt64(counter, 1)
+        runtime.Gosched()
+
+        // decode packet
+        _, err := teltonikaparser.Decode(&(*bs)[element])
+        // trash ping packets 0xFF
+        if err != nil && err.Error() != "Minimum packet size is 45 Bytes, got 1" {
+            // increment error counter
+            atomic.AddInt64(errcounter, 1)
+            runtime.Gosched()
+        }
+        // synchro
+        waitgroup.Done()
+    }
+}
+}
+```
+
+```text
+Output:
+takes:  31 seconds
+total:  58254304 packets
+errors: 6641 invalid packets
+```
+
+Result:  
+On Intel Core i7-7700K CPU @ 4.20Ghz takes one run 31 seconds and it parsed 58254304 packets. So the throughput is about 1,8milions of packets per second.
