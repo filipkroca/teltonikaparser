@@ -58,9 +58,11 @@ type Element struct {
 
 ### func Decode
 
-Decode is used for basic decoding as see in the example. [FULL DOCUMENTATION](https://godoc.org/github.com/filipkroca/teltonikaparser#Decode) 
+Decode is used for basic decoding as see in the example. It takes a pointer to a byte slice and return Decoded struct and error. [FULL DOCUMENTATION](https://godoc.org/github.com/filipkroca/teltonikaparser#Decode) 
 
-### Example
+Performance per core: 849 ns/op 720 B/op 3 allocs/op
+
+### Example Decode
 
 ```go
 package main
