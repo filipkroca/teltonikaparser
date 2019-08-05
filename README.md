@@ -100,9 +100,51 @@ This package also provides method (h *HAvlData) GetFinalValue() which can conver
 
 Currently are implemented AVLs lists for [FMBXY](https://wiki.teltonika.lt/view/FMB_AVL_ID) and [FMB64](https://wiki.teltonika.lt/view/FMB64_AVL_ID) devices family.
 
-## Example
+### type HumanDecoder
 
-Have binary packet bs which is Teltonika UDP Codec 8 packet
+HumanDecoder is responsible for decoding
+
+```go
+type HumanDecoder struct {
+    elements map[string]map[uint16]AvlEncodeKey
+}
+```
+
+### type HAvlData
+
+HAvlData represent human readable set of a pointer to an AvlEncodeKey Decoding key and a pointer to IO element with RAW data
+
+```go
+type HAvlData struct {
+    AvlEncodeKey *AvlEncodeKey
+    Element      *Element
+}
+```
+
+### type AvlEncodeKey
+
+AvlEncodeKey represent parsed element values from JSON
+
+```go
+type AvlEncodeKey struct {
+    No              string `json:"No"`
+    PropertyName    string `json:"PropertyName"`
+    Bytes           string `json:"Bytes"`
+    Type            string `json:"Type"`
+    Min             string `json:"Min"`
+    Max             string `json:"Max"`
+    Multiplier      string `json:"Multiplier"`
+    Units           string `json:"Units"`
+    Description     string `json:"Description"`
+    HWSupport       string `json:"HWSupport"`
+    ParametrGroup   string `json:"Parametr Group"`
+    FinalConversion string `json:"FinalConversion"`
+}
+```
+
+### Example HumanDecoder
+
+Have a binary packet bs which is Teltonika UDP Codec 8 packet
 
 ```go
 package main
