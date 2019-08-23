@@ -99,7 +99,7 @@ Output:
 
 This package also provides method (h *HAvlData) GetFinalValue() which can convert values to human-readable form. It can be primary used for diagnostic purposes.
 
-Currently are implemented AVLs lists for [FMBXY](https://wiki.teltonika.lt/view/FMB_AVL_ID) and [FMB64](https://wiki.teltonika.lt/view/FMB64_AVL_ID) devices family.
+Currently are implemented AVLs lists for [FMBXY](https://wiki.teltonika.lt/view/FMB_AVL_ID), [FMB64](https://wiki.teltonika.lt/view/FMB64_AVL_ID), FM36 and FM11XY devices family.
 
 ### type HumanDecoder
 
