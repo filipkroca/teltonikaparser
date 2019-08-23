@@ -71,7 +71,7 @@ func (h *HumanDecoder) loadElements() {
 	// make map
 	h.elements = make(map[string]map[uint16]AvlEncodeKey)
 
-	// read our opened xmlFile as a byte array.
+	// read our opened json as a byte array.
 	byteValue := []byte(teltonikajson.FMBXY)
 	fmbxy := make(map[uint16]AvlEncodeKey)
 	//h.elements["FMBXY"] = make(map[uint16]AvlEncodeKey)
@@ -81,7 +81,7 @@ func (h *HumanDecoder) loadElements() {
 	}
 	h.elements["FMBXY"] = fmbxy
 
-	// read our opened xmlFile as a byte array.
+	// read our opened json as a byte array.
 	byteValue = []byte(teltonikajson.FM64)
 	fm64 := make(map[uint16]AvlEncodeKey)
 	err = json.Unmarshal(byteValue, &fm64)
@@ -89,6 +89,24 @@ func (h *HumanDecoder) loadElements() {
 		log.Panic(err)
 	}
 	h.elements["FM64"] = fm64
+
+	// read our opened json as a byte array.
+	byteValue = []byte(teltonikajson.FM36)
+	fm36 := make(map[uint16]AvlEncodeKey)
+	err = json.Unmarshal(byteValue, &fm36)
+	if err != nil {
+		log.Panic(err)
+	}
+	h.elements["FM36"] = fm36
+
+	// read our opened json as a byte array.
+	byteValue = []byte(teltonikajson.FM11XY)
+	fm11XY := make(map[uint16]AvlEncodeKey)
+	err = json.Unmarshal(byteValue, &fm11XY)
+	if err != nil {
+		log.Panic(err)
+	}
+	h.elements["FM11XY"] = fm11XY
 
 }
 
@@ -104,7 +122,7 @@ func (h *HAvlData) GetFinalValue() (interface{}, error) {
 
 	if h.AvlEncodeKey.FinalConversion == "toUint8" {
 		if h.AvlEncodeKey.Bytes != "1" || h.AvlEncodeKey.Type != "Unsigned" || len(h.Element.Value) != 1 {
-			return nil, fmt.Errorf("Unable to convert %vBytes long parametr, %vBytes real long parametr to Uint8 %v", h.AvlEncodeKey.Bytes, len(h.Element.Value), h.AvlEncodeKey.PropertyName)
+			return nil, fmt.Errorf("Unable to convert %vBytes long parametr, %vBytes real long parametr to Uint8 %v, original value %x", h.AvlEncodeKey.Bytes, len(h.Element.Value), h.AvlEncodeKey.PropertyName, h.Element.Value)
 		}
 		return b2n.ParseBs2Uint8(&h.Element.Value, 0)
 	}
