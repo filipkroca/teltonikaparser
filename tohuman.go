@@ -40,7 +40,7 @@ type AvlEncodeKey struct {
 	FinalConversion string `json:"FinalConversion"`
 }
 
-// Human takes a pointer to Element, device type ["FMBXY", "FM64"] and return a pointer to decoding key
+// Human takes a pointer to Element, device type ["FMBXY", "FM64", "FM36", "FM11XY"] and return a pointer to decoding key
 func (h *HumanDecoder) Human(el *Element, device string) (*HAvlData, error) {
 	//init decoding key
 	if len(h.elements) == 0 {
