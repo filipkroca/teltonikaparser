@@ -1197,7 +1197,7 @@ const FM64 string = `{
 	"89":{
 	   "No":"",
 	   "PropertyName":"Axle weight 1",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1206,12 +1206,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"90":{
 	   "No":"",
 	   "PropertyName":"Axle weight 2",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1220,12 +1220,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"91":{
 	   "No":"",
 	   "PropertyName":"Axle weight 3",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1234,12 +1234,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"92":{
 	   "No":"",
 	   "PropertyName":"Axle weight 4",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1248,12 +1248,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"93":{
 	   "No":"",
 	   "PropertyName":"Axle weight 5",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1262,12 +1262,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"94":{
 	   "No":"",
 	   "PropertyName":"Axle weight 6",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1276,12 +1276,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"95":{
 	   "No":"",
 	   "PropertyName":"Axle weight 7",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1290,12 +1290,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"96":{
 	   "No":"",
 	   "PropertyName":"Axle weight 8",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1304,12 +1304,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"97":{
 	   "No":"",
 	   "PropertyName":"Axle weight 9",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1318,12 +1318,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"98":{
 	   "No":"",
 	   "PropertyName":"Axle weight 10",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1332,12 +1332,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"99":{
 	   "No":"",
 	   "PropertyName":"Axle weight 11",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1346,12 +1346,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"100":{
 	   "No":"",
 	   "PropertyName":"Axle weight 12",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1360,12 +1360,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"101":{
 	   "No":"",
 	   "PropertyName":"Axle weight 13",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1374,12 +1374,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"102":{
 	   "No":"",
 	   "PropertyName":"Axle weight 14",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1388,12 +1388,12 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"103":{
 	   "No":"",
 	   "PropertyName":"Axle weight 15",
-	   "Bytes":"4",
+	   "Bytes":"2",
 	   "Type":"Unsigned",
 	   "Min":"0",
 	   "Max":"32766",
@@ -1402,7 +1402,7 @@ const FM64 string = `{
 	   "Description":"",
 	   "HWSupport":"FMB640",
 	   "Parametr Group":"FMS elements",
-	   "FinalConversion":"toUint32"
+	   "FinalConversion":"toUint16"
 	},
 	"104":{
 	   "No":"",
