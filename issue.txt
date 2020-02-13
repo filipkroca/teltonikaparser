@@ -1,0 +1,85 @@
+------ NEW PACKET ---------------
+Movement 1
+GSM Signal 4
+Ignition 1
+Drive Recognize 0
+Tachograph Over Speed 0
+Vehicle Identification Number Part3 54
+Driver 1 Working State 2
+Driver 2 Working State 1
+Driver 1 Card Presence 1
+Driver 2 Card Presence 0
+Driver 1 Time Related States 0
+Driver 2 Time Related States 0
+Card 1 Issuing Member State 12
+Tacho Data Source 4
+Battery Voltage 9996
+External Voltage 28146
+GSM Area Code 6
+Axle weight 1 0
+Axle weight 2 0
+Driver 1 Selected Activity Duration 0
+Driver 2 Selected Activity Duration 0
+Active GSM Operator 23102
+GSM Cell ID 33893
+Acceleration Pedal Position 0
+Engine Total Fuel Used 159563
+Fuel Level 99
+Engine Speed 788
+Engine Total Hours Of Operation 14385
+Fuel Rate 1
+High Resolution Engine Total Fuel Used 0
+Odometer 278136240
+-------------------- 352093085120763 START
+278136240 1
+-------------------- END
+Vehicle Identification Number Part2 F0L41636
+Vehicle Identification Number Part1 XLRAE45G
+Driver 1 ID LSB 05C6E001
+Driver 1 ID MSB 00000000
+------------- END PACKET ---------------
+&
+RAW HEX: 00BDCAFE0102000F3335323039333038353132303736330801000001703EF931C3000AD48C331D34784D0000000000000000230EF0011504EF01B700BA00EB36B802B901BB01BC00BD00BE00DE0C30040743270C426DF2CE00065900005A00003C00003D00000AF100005A3ECD0000846554000000005600026F4B57000000635800000314680000383187000000018A00000000C0109405B004EA46304C3431363336E9584C524145343547C43035433645303031C3303030303030303001
+
+------------- NEW PACKET ---------------
+Movement 0
+GSM Signal 5
+Ignition 1
+Drive Recognize 0
+Tachograph Over Speed 0
+Vehicle Identification Number Part3 54
+Driver 1 Working State 2
+Driver 2 Working State 1
+Driver 1 Card Presence 1
+Driver 2 Card Presence 0
+Driver 1 Time Related States 0
+Driver 2 Time Related States 0
+Card 1 Issuing Member State 12
+Tacho Data Source 4
+Battery Voltage 9995
+External Voltage 28184
+GSM Area Code 6
+Axle weight 1 0
+Axle weight 2 0
+Driver 1 Selected Activity Duration 1
+Driver 2 Selected Activity Duration 1
+Active GSM Operator 23102
+GSM Cell ID 33893
+Acceleration Pedal Position 0
+Engine Total Fuel Used 159563
+Fuel Level 99
+Engine Speed 787
+Engine Total Hours Of Operation 14386
+Fuel Rate 1
+High Resolution Engine Total Fuel Used 0
+Odometer 788297485
+-------------------- 352093085120763 START
+788297485 1
+-------------------- END
+Vehicle Identification Number Part2 F0L41636
+Vehicle Identification Number Part1 XLRAE45G
+Driver 1 ID LSB 05C6E001
+Driver 1 ID MSB 00000000
+------------- END PACKET ---------------
+&
+RAW HEX:00BDCAFE0108000F3335323039333038353132303736330801000001703EFA499C000AD470981D34662301070000110000F0230EF0001505EF01B700BA00EB36B802B901BB01BC00BD00BE00DE0C30040743270B426E18CE00065900005A00003C00013D00010AF100005A3ECD0000846554000000005600026F4B57000000635800000313680000383287000000018A00000000C02EFC770D04EA46304C3431363336E9584C524145343547C43035433645303031C3303030303030303001
