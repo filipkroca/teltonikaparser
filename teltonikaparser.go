@@ -123,6 +123,15 @@ func Decode(bs *[]byte) (Decoded, error) {
 		nextByte++
 
 		// parse and validate GPS
+		decodedData.Lng, err = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
+		if err != nil {
+			return Decoded{}, fmt.Errorf("Decode error, %v", err)
+		}
+		if !(decodedData.Lng > -1800000000 && decodedData.Lng < 1800000000) {
+			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -1800000000 AND lat < 1800000000, got %v", decodedData.Lng)
+		}
+		nextByte += 4
+
 		decodedData.Lat, err = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
 		if err != nil {
 			return Decoded{}, fmt.Errorf("Decode error, %v", err)
@@ -130,14 +139,6 @@ func Decode(bs *[]byte) (Decoded, error) {
 
 		if !(decodedData.Lat > -850000000 && decodedData.Lat < 850000000) {
 			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -850000000 AND lat < 850000000, got %v", decodedData.Lat)
-		}
-		nextByte += 4
-		decodedData.Lng, err = b2n.ParseBs2Int32TwoComplement(bs, nextByte)
-		if err != nil {
-			return Decoded{}, fmt.Errorf("Decode error, %v", err)
-		}
-		if !(decodedData.Lng > -1800000000 && decodedData.Lng < 1800000000) {
-			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -1800000000 AND lat < 1800000000, got %v", decodedData.Lng)
 		}
 		nextByte += 4
 
