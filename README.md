@@ -172,7 +172,7 @@ func main() {
     }
 
     // initialize a human decoder
-    humanDecoder := HumanDecoder{}
+    humanDecoder := teltonikaparser.HumanDecoder{}
 
     // loop over raw data
     for _, val := range parsedData.Data {
