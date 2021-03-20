@@ -19,6 +19,7 @@ type Decoded struct {
 	CodecID  byte      // 0x08 (codec 8) or 0x8E (codec 8 extended)
 	NoOfData uint8     // Number of Data
 	Data     []AvlData // Slice with avl data
+	Response []byte 	 // Slice with a response
 }
 
 // AvlData represent one block of data
@@ -215,6 +216,9 @@ func Decode(bs *[]byte) (Decoded, error) {
 	if decoded.NoOfData != endNoOfData {
 		return Decoded{}, fmt.Errorf("Unexpected byte representing control num. of data on end of parsing, want %#x, got %#x", decoded.NoOfData, endNoOfData)
 	}
+
+	// create response packet
+	decoded.Response = []byte{0x00, 0x05, 0xCA, 0xFE, 0x01, (*bs)[4], decoded.NoOfData}
 
 	return decoded, nil
 }

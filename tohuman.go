@@ -66,6 +66,49 @@ func (h *HumanDecoder) Human(el *Element, device string) (*HAvlData, error) {
 	return &havl, nil
 }
 
+// AvlDataToHuman takes a pointer to a slice of AvlData and return a slice with data
+func (h *HumanDecoder) AvlDataToHuman(data *[]AvlData) ([][][]string, error) {
+	//init decoding key
+	if len(h.elements) == 0 {
+		h.loadElements()
+	}
+
+	codec := "FMBXY"
+	var output = make([][][]string, len(*data))
+
+autoDecode:
+	// loop over raw data
+	for i, val := range *data {
+		output[i] = make([][]string, len(val.Elements))
+		// loop over Elements
+		for j, ioel := range val.Elements {
+			// decode to human readable format
+			decoded, err := h.Human(&ioel, codec)
+			if err != nil {
+				log.Panicf("Error when converting human, %v\n", err)
+			}
+
+			// get final decoded value to value which is specified in ./teltonikajson/ in paramether FinalConversion
+			if val, err := (*decoded).GetFinalValue(); err != nil {
+				// detect device family
+				if codec == "FMBXY" {
+					codec = "FM64"
+				} else if codec == "FM64" {
+					codec = "FM36"
+				} else if codec == "FM36" {
+					codec = "FM11XY"
+				} else {
+					return nil, fmt.Errorf("Unable to GetFinalValue() %v", err)
+				}
+				goto autoDecode
+			} else if val != nil {
+				output[i][j] = []string{fmt.Sprintf("%v", decoded.AvlEncodeKey.PropertyName), fmt.Sprintf("%v", val)}
+			}
+		}
+	}
+	return output, nil
+}
+
 // loadElements parses ./decoding/.. into slice
 func (h *HumanDecoder) loadElements() {
 	// make map
