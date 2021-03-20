@@ -22,6 +22,8 @@ type Decoded struct {
     CodecID  byte      // 0x08 (codec 8) or 0x8E (codec 8 extended)
     NoOfData uint8     // Number of Data
     Data     []AvlData // Slice with avl data
+    Data     []AvlData // Slice with avl data
+    Response []byte    // Slice with a response to a packet
 }
 ```
 
