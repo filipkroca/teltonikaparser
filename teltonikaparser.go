@@ -120,6 +120,9 @@ func Decode(bs *[]byte) (Decoded, error) {
 		if err != nil {
 			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
+		if !(decodedData.Priority <= 2) {
+			return Decoded{}, fmt.Errorf("Invalid Priority value, want priority <= 2, got %v", decodedData.Priority)
+		}
 
 		nextByte++
 
