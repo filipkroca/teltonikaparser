@@ -177,7 +177,7 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 			}
 			// append element to the returned slice
 			ElementsBS = append(ElementsBS, cutted)
-			nextByte += codecLenDel + len(cutted.Value)
+			nextByte += 4 + int(cutted.Length)
 			totalElementsChecksum++
 		}
 
