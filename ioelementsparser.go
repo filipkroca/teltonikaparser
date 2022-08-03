@@ -41,8 +41,7 @@ func DecodeElements(bs *[]byte, start int, codecID byte) (map[uint16]Element, in
 		totalElements = int(x)
 	}
 	totalElementsChecksum := 0
-	// make a slice
-	result[cutted.ioid] = cutted
+	
 
 	// start parsing data
 	nextByte := start + codecLenDel
