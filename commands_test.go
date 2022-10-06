@@ -104,12 +104,17 @@ func TestCommandRequestDecoding(t *testing.T) {
 func TestCommandResponseDecode(t *testing.T) {
 	testCases := []struct {
 		Name                    string
+		ErrorCase               bool
+		ExpectedErrorMessage    string
 		ClientResponse          string
 		ExpectedDecodedResponse CommandResponse
 	}{
 		{
-			Name:           "CommandCodec12GetInfoResponse",
-			ClientResponse: "00000000000000900C010600000088494E493A323031392F372F323220373A3232205254433A323031392F372F323220373A3533205253543A32204552523A312053523A302042523A302043463A302046473A3020464C3A302054553A302F302055543A3020534D533A30204E4F4750533A303A3330204750533A31205341543A302052533A332052463A36352053463A31204D443A30010000C78F",
+			Name: "CommandCodec12GetInfoResponse",
+
+			ClientResponse:       "00000000000000900C010600000088494E493A323031392F372F323220373A3232205254433A323031392F372F323220373A3533205253543A32204552523A312053523A302042523A302043463A302046473A3020464C3A302054553A302F302055543A3020534D533A30204E4F4750533A303A3330204750533A31205341543A302052533A332052463A36352053463A31204D443A30010000C78F",
+			ErrorCase:            false,
+			ExpectedErrorMessage: "",
 			ExpectedDecodedResponse: CommandResponse{
 				commandResponsePre: commandResponsePre{
 					Preamble:          0x00000000,
@@ -127,8 +132,10 @@ func TestCommandResponseDecode(t *testing.T) {
 			},
 		},
 		{
-			Name:           "CommandCodec12GetIoResponse",
-			ClientResponse: "00000000000000370C01060000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E3",
+			Name:                 "CommandCodec12GetIoResponse",
+			ErrorCase:            false,
+			ExpectedErrorMessage: "",
+			ClientResponse:       "00000000000000370C01060000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E3",
 			ExpectedDecodedResponse: CommandResponse{
 				commandResponsePre: commandResponsePre{
 					Preamble:          0x00000000,
@@ -145,6 +152,34 @@ func TestCommandResponseDecode(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name:                    "CommandCodec12GetIoResponseWrongPreamble",
+			ErrorCase:               true,
+			ExpectedErrorMessage:    "wrong preamble: 268435456",
+			ClientResponse:          "10000000000000370C01060000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E3",
+			ExpectedDecodedResponse: CommandResponse{},
+		},
+		{
+			Name:                    "CommandCodec12GetIoResponseWrongCrc",
+			ErrorCase:               true,
+			ExpectedErrorMessage:    "wrong CRC! Calculated: 66e3 Received: 66e4",
+			ClientResponse:          "00000000000000370C01060000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E4",
+			ExpectedDecodedResponse: CommandResponse{},
+		},
+		{
+			Name:                    "CommandCodec12GetIoResponseWrongType",
+			ErrorCase:               true,
+			ExpectedErrorMessage:    "wrong type: 5",
+			ClientResponse:          "00000000000000370C01050000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E3",
+			ExpectedDecodedResponse: CommandResponse{},
+		},
+		{
+			Name:                    "CommandCodec12GetIoResponseTooShortMessage",
+			ErrorCase:               true,
+			ExpectedErrorMessage:    "unexpected EOF",
+			ClientResponse:          "0000000000",
+			ExpectedDecodedResponse: CommandResponse{},
+		},
 	}
 
 	// Run all natsio cases as a separated network connection
@@ -157,6 +192,18 @@ func TestCommandResponseDecode(t *testing.T) {
 			}
 
 			decoded, err := DecodeCommandResponse(rawClientResponse)
+			if testCase.ErrorCase {
+				if err == nil {
+					test.Logf("This is an error case but there is no error.")
+					test.Fail()
+				}
+				if err.Error() != testCase.ExpectedErrorMessage {
+					test.Logf("Expected error message: %v, Actual error message: %v", testCase.ExpectedErrorMessage, err.Error())
+					test.Fail()
+				}
+				return
+			}
+
 			if err != nil {
 				test.Logf("Failed to decode client request. %v", err)
 				test.Fail()
