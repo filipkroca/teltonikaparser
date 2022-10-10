@@ -87,7 +87,7 @@ func TestCommandRequestDecoding(t *testing.T) {
 				test.Fail()
 			}
 
-			decoded, err := DecodeCommandRequest(rawCommandRequest)
+			decoded, err := DecodeCommandRequest(&rawCommandRequest)
 			if err != nil {
 				test.Logf("Failed to decode command request. %v", err)
 				test.Fail()
@@ -155,7 +155,7 @@ func TestCommandResponseDecode(t *testing.T) {
 		{
 			Name:                    "CommandCodec12GetIoResponseWrongPreamble",
 			ErrorCase:               true,
-			ExpectedErrorMessage:    "wrong preamble: 268435456",
+			ExpectedErrorMessage:    "wrong preamble: 0x10000000",
 			ClientResponse:          "10000000000000370C01060000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E3",
 			ExpectedDecodedResponse: CommandResponse{},
 		},
@@ -169,15 +169,22 @@ func TestCommandResponseDecode(t *testing.T) {
 		{
 			Name:                    "CommandCodec12GetIoResponseWrongType",
 			ErrorCase:               true,
-			ExpectedErrorMessage:    "wrong type: 5",
+			ExpectedErrorMessage:    "wrong type: 0x5",
 			ClientResponse:          "00000000000000370C01050000002F4449313A31204449323A30204449333A302041494E313A302041494E323A313639323420444F313A3020444F323A3101000066E3",
 			ExpectedDecodedResponse: CommandResponse{},
 		},
 		{
 			Name:                    "CommandCodec12GetIoResponseTooShortMessage",
 			ErrorCase:               true,
-			ExpectedErrorMessage:    "unexpected EOF",
-			ClientResponse:          "0000000000",
+			ExpectedErrorMessage:    "wrong CodecID: 0x33",
+			ClientResponse:          "000000000176000f3335303432343036333831373336338e01000001839ed29768000b5629e81c5451d0000000000000000000000b000500500000150400c800004502001d00000500422e9b0018000000cd13f000ce005d00430fd4000100f10000547e0000000001", // modified Codec8 data package
+			ExpectedDecodedResponse: CommandResponse{},
+		},
+		{
+			Name:                    "Try to decode something different from a command response",
+			ErrorCase:               true,
+			ExpectedErrorMessage:    "only 7 bytes received. Probably not a teltonika command response packet",
+			ClientResponse:          "0005cafe017601", // server acknowledgement package of Codec8 or Codec8 Extended
 			ExpectedDecodedResponse: CommandResponse{},
 		},
 	}
@@ -191,7 +198,7 @@ func TestCommandResponseDecode(t *testing.T) {
 				test.Fail()
 			}
 
-			decoded, err := DecodeCommandResponse(rawClientResponse)
+			decoded, err := DecodeCommandResponse(&rawClientResponse)
 			if testCase.ErrorCase {
 				if err == nil {
 					test.Logf("This is an error case but there is no error.")

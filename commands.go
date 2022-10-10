@@ -11,6 +11,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"github.com/basvdlei/gotsmart/crc16"
+	"unsafe"
 )
 
 const (
@@ -137,10 +138,10 @@ func EncodeCommandRequest(command string) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
-func DecodeCommandRequest(rawCommand []byte) (CommandRequest, error) {
+func DecodeCommandRequest(rawCommand *[]byte) (CommandRequest, error) {
 	var decoded CommandRequest
 
-	reader := bytes.NewReader(rawCommand)
+	reader := bytes.NewReader(*rawCommand)
 
 	// Read first part of the record until the dynamic sized section.
 	err := binary.Read(reader, binary.BigEndian, &decoded.commandRequestPre)
@@ -166,7 +167,7 @@ func DecodeCommandRequest(rawCommand []byte) (CommandRequest, error) {
 	}
 
 	// Calculate CRC by my own and check if it is equal to the got CRC
-	d := rawCommand[8 : len(rawCommand)-4] // drop first 8 bytes and last 4 bytes and calculate CRC
+	d := (*rawCommand)[8 : len(*rawCommand)-4] // drop first 8 bytes and last 4 bytes and calculate CRC
 	crc := crc16.Checksum(d)
 
 	expected := decoded.CRC
@@ -177,15 +178,32 @@ func DecodeCommandRequest(rawCommand []byte) (CommandRequest, error) {
 	return decoded, nil
 }
 
-func DecodeCommandResponse(rawResponse []byte) (CommandResponse, error) {
+func DecodeCommandResponse(rawResponse *[]byte) (CommandResponse, error) {
 	var decoded CommandResponse
 
-	reader := bytes.NewReader(rawResponse)
+	reader := bytes.NewReader(*rawResponse)
+
+	const minSize = int(unsafe.Sizeof(decoded.commandResponsePre))
+	if len(*rawResponse) < minSize {
+		return decoded, fmt.Errorf("only %d bytes received. Probably not a teltonika command response packet", len(*rawResponse))
+	}
 
 	// Read first part of the record until the dynamic sized section.
 	err := binary.Read(reader, binary.BigEndian, &decoded.commandResponsePre)
 	if err != nil {
 		return decoded, fmt.Errorf("%v", err)
+	}
+
+	if decoded.Preamble != ResponsePreamble {
+		return decoded, fmt.Errorf("wrong preamble: 0x%x", decoded.Preamble)
+	}
+
+	if decoded.CodecID != CodecID {
+		return decoded, fmt.Errorf("wrong CodecID: 0x%x", decoded.CodecID)
+	}
+
+	if decoded.Type != CommandTypeResponse {
+		return decoded, fmt.Errorf("wrong type: 0x%x", decoded.Type)
 	}
 
 	// Allocate memory for the dynamic sized section. Actual size is defined in the first block.
@@ -201,20 +219,8 @@ func DecodeCommandResponse(rawResponse []byte) (CommandResponse, error) {
 		return decoded, fmt.Errorf("%v", err)
 	}
 
-	if decoded.Preamble != ResponsePreamble {
-		return decoded, fmt.Errorf("wrong preamble: %v", decoded.Preamble)
-	}
-
-	if decoded.CodecID != CodecID {
-		return decoded, fmt.Errorf("wrong CodecID: %v", decoded.CodecID)
-	}
-
-	if decoded.Type != CommandTypeResponse {
-		return decoded, fmt.Errorf("wrong type: %v", decoded.Type)
-	}
-
 	// Calculate CRC by my own and check if it is equal to the got CRC
-	d := rawResponse[8 : len(rawResponse)-4] // drop first 8 bytes and last 4 bytes and calculate CRC
+	d := (*rawResponse)[8 : len(*rawResponse)-4] // drop first 8 bytes and last 4 bytes and calculate CRC
 	calculatedCrc := crc16.Checksum(d)
 
 	expected := decoded.CRC
