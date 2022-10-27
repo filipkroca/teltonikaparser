@@ -34,7 +34,7 @@ type AvlData struct {
 	VisSat   uint8     // Satellites Number of visible satellites
 	Speed    uint16    // Speed in km/h
 	EventID  uint16    // Event generated (0 – data generated not on event)
-	Elements []Element // Slice containing parsed IO Elements
+	Elements map[uint16]Element // Slice containing parsed IO Elements
 }
 
 // Element represent one IO element, before storing in a db do a conversion to IO datatype (1B, 2B, 4B, 8B)

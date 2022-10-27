@@ -11,8 +11,8 @@ import (
 )
 
 // DecodeElements take pointer to a byte slice with raw data, start Byte position and Codec ID, and returns slice of Element
-func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error) {
-
+func DecodeElements(bs *[]byte, start int, codecID byte) (map[uint16]Element, int, error) {
+	result := make(map[uint16]Element)
 	var totalElements int
 	codecLenDel := 1
 	if codecID == 0x8e {
@@ -28,21 +28,20 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	if codecID == 0x8e {
 		x, err := b2n.ParseBs2Uint16(bs, start)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements error %v", err)
 		}
 
 		totalElements = int(x)
 	} else if codecID == 0x08 {
 		x, err := b2n.ParseBs2Uint8(bs, start)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements error %v", err)
 		}
 
 		totalElements = int(x)
 	}
 	totalElementsChecksum := 0
-	// make a slice
-	ElementsBS := make([]Element, 0, totalElements)
+	
 
 	// start parsing data
 	nextByte := start + codecLenDel
@@ -50,14 +49,14 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	// parse 1Byte ios
 	x, err := b2n.ParseBs2Uint8(bs, nextByte)
 	if err != nil {
-		return []Element{}, 0, fmt.Errorf("DecodeElements error %v", err)
+		return result, 0, fmt.Errorf("DecodeElements error %v", err)
 	}
 	noOfElements := int(x)
 
 	if codecID == 0x8e {
 		z, err := b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements error %v", err)
 		}
 		noOfElements = int(z)
 	}
@@ -67,10 +66,10 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		cutted, err := cutIO(bs, nextByte, codecLenDel, 1)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements 1B error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements 1B error %v", err)
 		}
 		//append element to the returned slice
-		ElementsBS = append(ElementsBS, cutted)
+		result[cutted.IOID] = cutted
 		nextByte += codecLenDel + 1
 		totalElementsChecksum++
 	}
@@ -78,14 +77,14 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	// parse 2Byte ios
 	noOfElementsX, err := b2n.ParseBs2Uint8(bs, nextByte)
 	if err != nil {
-		return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements 2B error %v", err)
+		return result, 0, fmt.Errorf("DecodeElements noOfElements 2B error %v", err)
 	}
 	noOfElements = int(noOfElementsX)
 
 	if codecID == 0x8e {
 		noOfElementsX, err := b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements 2B Extended Codec error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements noOfElements 2B Extended Codec error %v", err)
 		}
 		noOfElements = int(noOfElementsX)
 	}
@@ -95,10 +94,10 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		cutted, err := cutIO(bs, nextByte, codecLenDel, 2)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements 2B error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements 2B error %v", err)
 		}
 		// append element to the returned slice
-		ElementsBS = append(ElementsBS, cutted)
+		result[cutted.IOID] = cutted
 		nextByte += codecLenDel + 2
 		totalElementsChecksum++
 	}
@@ -106,14 +105,14 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	//parse 4Byte ios
 	noOfElementsX, err = b2n.ParseBs2Uint8(bs, nextByte)
 	if err != nil {
-		return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements 4B error %v", err)
+		return result, 0, fmt.Errorf("DecodeElements noOfElements 4B error %v", err)
 	}
 	noOfElements = int(noOfElementsX)
 
 	if codecID == 0x8e {
 		noOfElementsX, err := b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements 4B Extended Codec error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements noOfElements 4B Extended Codec error %v", err)
 		}
 		noOfElements = int(noOfElementsX)
 	}
@@ -123,10 +122,10 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		cutted, err := cutIO(bs, nextByte, codecLenDel, 4)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements 4B error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements 4B error %v", err)
 		}
 		// append element to the returned slice
-		ElementsBS = append(ElementsBS, cutted)
+		result[cutted.IOID] = cutted
 		nextByte += codecLenDel + 4
 		totalElementsChecksum++
 	}
@@ -134,14 +133,14 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	//parse 8Byte ios
 	noOfElementsX, err = b2n.ParseBs2Uint8(bs, nextByte)
 	if err != nil {
-		return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements 8B error %v", err)
+		return result, 0, fmt.Errorf("DecodeElements noOfElements 8B error %v", err)
 	}
 	noOfElements = int(noOfElementsX)
 
 	if codecID == 0x8e {
 		noOfElementsX, err := b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements 8B Extended Codec error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements noOfElements 8B Extended Codec error %v", err)
 		}
 		noOfElements = int(noOfElementsX)
 	}
@@ -151,10 +150,10 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 	for ioB := 0; ioB < noOfElements; ioB++ {
 		cutted, err := cutIO(bs, nextByte, codecLenDel, 8)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements 8B error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements 8B error %v", err)
 		}
 		// append element to the returned slice
-		ElementsBS = append(ElementsBS, cutted)
+		result[cutted.IOID] = cutted
 		nextByte += codecLenDel + 8
 		totalElementsChecksum++
 	}
@@ -164,7 +163,7 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 
 		noOfElementsX, err := b2n.ParseBs2Uint16(bs, nextByte)
 		if err != nil {
-			return []Element{}, 0, fmt.Errorf("DecodeElements noOfElements variableB Extended Codec error %v", err)
+			return result, 0, fmt.Errorf("DecodeElements noOfElements variableB Extended Codec error %v", err)
 		}
 		noOfElements = int(noOfElementsX)
 
@@ -173,10 +172,10 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 		for ioB := 0; ioB < noOfElements; ioB++ {
 			cutted, err := cutIOxLen(bs, nextByte)
 			if err != nil {
-				return []Element{}, 0, fmt.Errorf("DecodeElements 2B error %v", err)
+				return result, 0, fmt.Errorf("DecodeElements 2B error %v", err)
 			}
 			// append element to the returned slice
-			ElementsBS = append(ElementsBS, cutted)
+			result[cutted.IOID] = cutted
 			nextByte += 4 + int(cutted.Length)
 			totalElementsChecksum++
 		}
@@ -185,10 +184,10 @@ func DecodeElements(bs *[]byte, start int, codecID byte) ([]Element, int, error)
 
 	if totalElementsChecksum != totalElements {
 		//log.Fatalf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
-		return []Element{}, 0, fmt.Errorf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
+		return result, 0, fmt.Errorf("Error when counting parsed IO Elements, want %v, got %v", totalElements, totalElementsChecksum)
 	}
 
-	return ElementsBS, nextByte, nil
+	return result, nextByte, nil
 
 }
 
