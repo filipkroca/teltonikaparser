@@ -132,7 +132,7 @@ func Decode(bs *[]byte) (Decoded, error) {
 			return Decoded{}, fmt.Errorf("Decode error, %v", err)
 		}
 		if !(decodedData.Lng > -1800000000 && decodedData.Lng < 1800000000) {
-			return Decoded{}, fmt.Errorf("Invalid Lat value, want lat > -1800000000 AND lat < 1800000000, got %v", decodedData.Lng)
+			return Decoded{}, fmt.Errorf("Invalid Lng value, want lng > -1800000000 AND lng < 1800000000, got %v", decodedData.Lng)
 		}
 		nextByte += 4
 
