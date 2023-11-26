@@ -6,6 +6,8 @@ Package teltonikaparser was created for parsing data structures from [Teltonika]
 
 Package teltonikaparser is a very fast, low-level implementation, it can decode over **one milion packets** per second per core. See [GO Concurrency Example](#example-usage-of-concurrency-pattern)
 
+Package has been extended with [Teltonika's Codes 12](https://wiki.teltonika-gps.com/view/Codec#Codec_12). With help of Codec 12, text commands can be sent to Teltonika devices. Text message format is the same as in SMS messages. See ```EncodeCommandRequest``` and ```DecodeCommandRequest``` functions for further details. 
+
 Performace:
 Decode()    788 ns/op   592 B/op    4 allocs/op  
 Human()     4082 ns/op  4722 B/op   49 allocs/op
